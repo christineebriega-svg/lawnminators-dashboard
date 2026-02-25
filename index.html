@@ -162,6 +162,13 @@ function getAgentQA(agent) {
   if (!v || v === 'N/A') return null;
   return v;
 }
+function n(val) {
+  // Strip commas before parsing so "1,234" → 1234 not 1
+  return parseInt(String(val || '').replace(/,/g, '')) || 0;
+}
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 
 const QA_DATA = [
   {
@@ -1231,14 +1238,14 @@ const EMBEDDED_DATA = [
     "Total Score %": "200.00%",
     "Overall Rank": "1",
     "Team Rank": "1",
-    "All In Calls": "47",
+    "All In Calls": "48",
     "Total Wins": "0",
     "EC Total Calls": "1"
   },
   {
     "Agent": "Jer Longno",
-    "Conversion All In %": "2.86%",
-    "Conversion Starter %": "3.23%",
+    "Conversion All In %": "5.56%",
+    "Conversion Starter %": "6.25%",
     "Conversion Love %": "0.00%",
     "Attach All In %": "100.00%",
     "Attach All In #": "1",
@@ -1261,8 +1268,8 @@ const EMBEDDED_DATA = [
     "Total Score %": "395.00%",
     "Overall Rank": "11",
     "Team Rank": "5",
-    "All In Calls": "35",
-    "Total Wins": "1",
+    "All In Calls": "36",
+    "Total Wins": "2",
     "EC Total Calls": "1"
   },
   {
@@ -1327,9 +1334,9 @@ const EMBEDDED_DATA = [
   },
   {
     "Agent": "Krizthan Pearl Ello",
-    "Conversion All In %": "9.76%",
+    "Conversion All In %": "9.52%",
     "Conversion Starter %": "3.23%",
-    "Conversion Love %": "10.00%",
+    "Conversion Love %": "9.09%",
     "Attach All In %": "66.67%",
     "Attach All In #": "2",
     "Mow Sales": "3",
@@ -1351,7 +1358,7 @@ const EMBEDDED_DATA = [
     "Total Score %": "200.00%",
     "Overall Rank": "1",
     "Team Rank": "1",
-    "All In Calls": "41",
+    "All In Calls": "42",
     "Total Wins": "4",
     "EC Total Calls": "0"
   },
@@ -1387,9 +1394,9 @@ const EMBEDDED_DATA = [
   },
   {
     "Agent": "Mariella Carpio",
-    "Conversion All In %": "6.12%",
+    "Conversion All In %": "6.00%",
     "Conversion Starter %": "5.26%",
-    "Conversion Love %": "9.09%",
+    "Conversion Love %": "8.33%",
     "Attach All In %": "50.00%",
     "Attach All In #": "1",
     "Mow Sales": "2",
@@ -1411,7 +1418,7 @@ const EMBEDDED_DATA = [
     "Total Score %": "200.00%",
     "Overall Rank": "1",
     "Team Rank": "1",
-    "All In Calls": "49",
+    "All In Calls": "50",
     "Total Wins": "3",
     "EC Total Calls": "0"
   },
@@ -1483,16 +1490,16 @@ function renderSummary(agents) {
   const lovePcts   = agents.map(a => pct(a['Conversion Love %']));
   const attachPcts = agents.map(a => pct(a['Attach All In %']));
   const ecPcts     = agents.map(a => pct(a['EC Upsell %']));
-  const totalAudits= agents.reduce((s, a) => s + (parseInt(a['Audits']) || parseInt(a['QA Audits']) || 0), 0);
-  const totalMow   = agents.reduce((s, a) => s + (parseInt(a['Mow Sales']) || 0), 0);
-  const totalEC    = agents.reduce((s, a) => s + (parseInt(a['EC Wins']) || 0), 0);
-  const totalAttach= agents.reduce((s, a) => s + (parseInt(a['Attach All In #']) || 0), 0);
+  const totalAudits= agents.reduce((s, a) => s + (n(a['Audits']) || n(a['QA Audits'])), 0);
+  const totalMow   = agents.reduce((s, a) => s + n(a['Mow Sales']), 0);
+  const totalEC    = agents.reduce((s, a) => s + n(a['EC Wins']), 0);
+  const totalAttach= agents.reduce((s, a) => s + n(a['Attach All In #']), 0);
 
   // Weighted QA average: sum(Total Score %) / sum(Audits)
   let qaScoreSum = 0, qaAuditSum = 0;
   for (const a of agents) {
-    const ts = parseFloat((a['Total Score %'] || '').replace('%',''));
-    const au = parseInt(a['Audits']) || 0;
+    const ts = parseFloat(String(a['Total Score %'] || '').replace(/,/g,'').replace('%',''));
+    const au = n(a['Audits']);
     if (!isNaN(ts) && au > 0) { qaScoreSum += ts; qaAuditSum += au; }
   }
   const avgQA = qaAuditSum > 0 ? qaScoreSum / qaAuditSum : null;
@@ -1501,16 +1508,16 @@ function renderSummary(agents) {
   const avgAttach = totalMow > 0 ? (totalAttach / totalMow * 100) : null;
 
   // True aggregate conversion: total wins / total all-in calls
-  const totalConvWins  = agents.reduce((s,a) => s + (parseInt(a['Total Wins']  ) || 0), 0);
-  const totalConvCalls = agents.reduce((s,a) => s + (parseInt(a['All In Calls']) || 0), 0);
+  const totalConvWins  = agents.reduce((s,a) => s + n(a['Total Wins']), 0);
+  const totalConvCalls = agents.reduce((s,a) => s + n(a['All In Calls']), 0);
   const avgConv  = totalConvCalls > 0 ? (totalConvWins / totalConvCalls * 100) : avg(convPcts.filter(v=>v!==null));
 
   const avgStarter = avg(starterPcts.filter(v=>v!==null));
   const avgLove    = avg(lovePcts.filter(v=>v!==null));
 
   // True aggregate EC: total wins / total EC calls (falls back to simple avg if EC Total Calls missing)
-  const totalECWins  = agents.reduce((s,a) => s + (parseInt(a['EC Wins']        ) || 0), 0);
-  const totalECCalls = agents.reduce((s,a) => s + (parseInt(a['EC Total Calls'] ) || 0), 0);
+  const totalECWins  = agents.reduce((s,a) => s + n(a['EC Wins']), 0);
+  const totalECCalls = agents.reduce((s,a) => s + n(a['EC Total Calls']), 0);
   const avgEC = totalECCalls > 0 ? (totalECWins / totalECCalls * 100) : avg(ecPcts.filter(v=>v!==null));
 
   const f = (v, d=2) => v !== null ? v.toFixed(d)+'%' : '—';
@@ -1557,10 +1564,10 @@ function renderSummary(agents) {
     <div class="top-performers" style="grid-column: span 4;">
       <h2>Top Performers This Cycle</h2>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
-        ${topQA ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top QA Score</div><div class="tp-name" style="font-size:18px;margin:6px 0;">${topQA.n}</div><div class="tp-val">${topQA.v}</div></div>` : ''}
-        ${topConv ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top All In Conv</div><div class="tp-name" style="font-size:18px;margin:6px 0;">${topConv.n}</div><div class="tp-val">${topConv.v}</div></div>` : ''}
-        ${topAttach ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top Attach %</div><div class="tp-name" style="font-size:18px;margin:6px 0;">${topAttach.n}</div><div class="tp-val">${topAttach.v}</div></div>` : ''}
-        ${topEC ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Most EC Wins</div><div class="tp-name" style="font-size:18px;margin:6px 0;">${topEC.n}</div><div class="tp-val">${topEC.v}</div></div>` : ''}
+        ${topQA ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top QA Score</div><div class="tp-name" style="font-size:18px;margin:6px 0;">${esc(topQA.n)}</div><div class="tp-val">${topQA.v}</div></div>` : ''}
+        ${topConv ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top All In Conv</div><div class="tp-name" style="font-size:18px;margin:6px 0;">${esc(topConv.n)}</div><div class="tp-val">${topConv.v}</div></div>` : ''}
+        ${topAttach ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top Attach %</div><div class="tp-name" style="font-size:18px;margin:6px 0;">${esc(topAttach.n)}</div><div class="tp-val">${topAttach.v}</div></div>` : ''}
+        ${topEC ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Most EC Wins</div><div class="tp-name" style="font-size:18px;margin:6px 0;">${esc(topEC.n)}</div><div class="tp-val">${topEC.v}</div></div>` : ''}
       </div>
     </div>
   </div>
@@ -1637,12 +1644,12 @@ function renderCard(agent) {
   const overallRank = agent['Overall Rank'] || '';
   const teamRank    = agent['Team Rank']    || '';
   const rankHtml = (overallRank || teamRank)
-    ? `<div class="qa-rank">${overallRank ? `#${overallRank} overall` : ''}${overallRank && teamRank ? ' · ' : ''}${teamRank ? `#${teamRank} team` : ''}</div>`
+    ? `<div class="qa-rank">${overallRank ? `#${esc(overallRank)} overall` : ''}${overallRank && teamRank ? ' · ' : ''}${teamRank ? `#${esc(teamRank)} team` : ''}</div>`
     : '';
   return `
-    <div class="card qa-${cls}" data-agent="${agent['Agent']}" data-idx="${idx}">
+    <div class="card qa-${cls}" data-agent="${esc(agent['Agent'])}" data-idx="${idx}">
       <div class="card-header">
-        <div class="agent-name">${agent['Agent']}</div>
+        <div class="agent-name">${esc(agent['Agent'])}</div>
         <div>
           <div class="qa-badge ${cls}">QA ${qlabel}</div>
           ${rankHtml}
@@ -1721,8 +1728,8 @@ function filterAgents(name) {
 function buildFilterBar(agents) {
   const pills = agents.map(a => {
     const name  = a['Agent'];
-    const first = name.split(' ')[0];
-    return `<button class="filter-pill" data-name="${name}" onclick="filterAgents('${name}')">${first}</button>`;
+    const first = esc(name.split(' ')[0]);
+    return `<button class="filter-pill" data-name="${esc(name)}" onclick="filterAgents(this.dataset.name)">${first}</button>`;
   }).join('');
   return `<div class="filter-bar"><span class="fb-label">View:</span><button class="filter-pill active" data-name="all" onclick="filterAgents('all')">All Agents</button>${pills}</div>`;
 }
