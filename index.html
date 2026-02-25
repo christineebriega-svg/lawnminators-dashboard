@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Lawnminators Dashboard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; color: #1a1a2e; }
+
+  /* HEADER */
+  header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; }
+  header h1 { font-size: 20px; font-weight: 700; }
+  header h1 span { color: #4ade80; }
+  .last-updated { font-size: 11px; color: #94a3b8; margin-top: 3px; }
+  .refresh-btn { background: #4ade80; color: #1a1a2e; border: none; padding: 7px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 13px; }
+  .refresh-btn:hover { background: #22c55e; }
+
+  /* TEAM SUMMARY */
+  .team-summary { padding: 20px 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+  .summary-card { background: white; border-radius: 10px; padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; margin-bottom: 12px; }
+  .summary-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .s-metric { text-align: center; }
+  .s-metric .v { font-size: 20px; font-weight: 800; color: #1a1a2e; }
+  .s-metric .v.green { color: #15803d; background: none; }
+  .s-metric .v.yellow { color: #a16207; background: none; }
+  .s-metric .v.red { color: #dc2626; background: none; }
+  .s-metric .l { font-size: 10px; color: #94a3b8; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+  .top-performers { background: white; border-radius: 10px; padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); grid-column: span 1; }
+  .top-performers h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; margin-bottom: 12px; }
+  .tp-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #f1f5f9; }
+  .tp-row:last-child { border-bottom: none; }
+  .tp-label { font-size: 11px; color: #64748b; }
+  .tp-name { font-size: 13px; font-weight: 700; color: #1a1a2e; }
+  .tp-val { font-size: 12px; color: #4ade80; font-weight: 600; background: #f0fdf4; padding: 2px 8px; border-radius: 10px; }
+
+  /* AGENT GRID */
+  .section-title { padding: 4px 28px 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; padding: 12px 28px 28px; }
+
+  .card { background: white; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); overflow: hidden; }
+  .card-header { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; background: #fafbfc; }
+  .agent-name { font-size: 14px; font-weight: 700; }
+  .qa-badge { padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+  .qa-rank { font-size: 10px; color: #64748b; margin-top: 3px; text-align: right; }
+
+  .card-body { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .metric-group h3 { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #f1f5f9; }
+  .metric-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .metric-label { font-size: 11px; color: #64748b; }
+  .metric-val { font-size: 12px; font-weight: 600; color: #1a1a2e; }
+  .metric-val.na { color: #d1d5db; font-weight: 400; }
+
+  .attend-footer { padding: 8px 16px; background: #fff8f0; border-top: 1px solid #fed7aa; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .attend-item { display: flex; flex-direction: column; gap: 2px; }
+  .attend-item .al { font-size: 9px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.4px; }
+  .attend-item .at { font-size: 12px; font-weight: 600; }
+  .attend-item .ov { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 8px; display: inline-block; margin-top: 2px; }
+  .ov-ok   { background: #dcfce7; color: #15803d; }
+  .ov-over { background: #fee2e2; color: #dc2626; }
+  .ov-na   { color: #d1d5db; }
+  .qa-footer { padding: 8px 16px 12px; background: #f8fafc; border-top: 1px solid #f1f5f9; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .qa-item { text-align: center; }
+  .qa-item .v { font-size: 15px; font-weight: 700; }
+  .qa-item .l { font-size: 9px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 1px; }
+
+  .green  { background: #dcfce7; color: #15803d; }
+  .yellow { background: #fef9c3; color: #a16207; }
+  .red    { background: #fee2e2; color: #dc2626; }
+  .gray   { background: #f1f5f9; color: #64748b; }
+
+  .loading { text-align: center; padding: 80px 32px; color: #64748b; font-size: 16px; }
+  .error-msg { background: #fee2e2; color: #dc2626; padding: 16px 28px; margin: 16px 28px; border-radius: 8px; }
+
+  /* FILTER BAR */
+  .filter-bar { padding: 10px 28px; background: white; border-bottom: 1px solid #e2e8f0; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .filter-bar .fb-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-right: 4px; }
+  .filter-pill { padding: 5px 14px; border-radius: 20px; border: 1.5px solid #e2e8f0; background: white; font-size: 12px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.15s; }
+  .filter-pill:hover { border-color: #4ade80; color: #15803d; }
+  .filter-pill.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
+
+  /* QA TOGGLE */
+  .qa-toggle-btn { width: 100%; padding: 7px 16px; background: #f1f5f9; border: none; border-top: 1px solid #e2e8f0; cursor: pointer; font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.6px; display: flex; justify-content: space-between; align-items: center; }
+  .qa-toggle-btn:hover { background: #e2e8f0; }
+  .qa-panel { display: none; border-top: 1px solid #e2e8f0; overflow-x: auto; }
+  .qa-panel.open { display: block; }
+  .qa-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .qa-table th { background: #1a1a2e; color: white; padding: 6px 8px; text-align: left; font-size: 10px; white-space: nowrap; }
+  .qa-table td { padding: 6px 8px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  .qa-table tr:last-child td { border-bottom: none; }
+  .qa-table tr:hover td { background: #f8fafc; }
+  .win-badge  { background: #dcfce7; color: #15803d; padding: 2px 6px; border-radius: 8px; font-weight: 700; white-space: nowrap; }
+  .loss-badge { background: #fee2e2; color: #dc2626; padding: 2px 6px; border-radius: 8px; font-weight: 700; white-space: nowrap; }
+  .score-cell { font-weight: 700; }
+  .score-green { color: #15803d; }
+  .score-yellow { color: #a16207; }
+  .score-red { color: #dc2626; }
+  .feedback-text { max-width: 200px; color: #475569; line-height: 1.4; }
+  .no-audits { padding: 12px 16px; color: #94a3b8; font-size: 12px; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Team <span>Lawnminators</span></h1>
+    <div class="last-updated" id="lastUpdated">Loading...</div>
+  </div>
+  <button class="refresh-btn" onclick="loadData()">Refresh</button>
+</header>
+
+<div id="content"><div class="loading">Loading team data...</div></div>
+
+<script>
+function pct(val) {
+  if (!val || val === 'N/A' || val === '') return null;
+  if (typeof val === 'string' && val.includes('%')) return parseFloat(val);
+  const n = parseFloat(val);
+  return isNaN(n) ? null : n * 100;
+}
+function fmtPct(val) {
+  const n = pct(val);
+  return n === null ? '<span class="metric-val na">—</span>' : `<span class="metric-val">${n.toFixed(2)}%</span>`;
+}
+function fmtNum(val) {
+  if (!val || val === 'N/A' || val === '') return '<span class="metric-val na">—</span>';
+  return `<span class="metric-val">${val}</span>`;
+}
+function avg(arr) {
+  const nums = arr.filter(v => v !== null);
+  return nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : null;
+}
+function qaCls(score) {
+  if (!score || score === 'N/A') return 'gray';
+  const n = parseFloat(score);
+  if (n >= 95) return 'green';
+  if (n >= 85) return 'yellow';
+  return 'red';
+}
+function qaLabel(score) {
+  if (!score || score === 'N/A' || score === '') return 'N/A';
+  return parseFloat(score).toFixed(1);
+}
+function getAgentQA(agent) {
+  const v = agent['QA %'] || agent['QA Score (Avg)'];
+  if (!v || v === 'N/A') return null;
+  return v;
+}
+
+const QA_DATA = [
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003121519",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "1/27 - Overall we did well on this call and ended on a nice note. One thing we can say when the customer asks if we can send an email with the details: instead of saying no, we can't, we can say what we CAN do like \"We can send details after booking.\" :) ",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003121489",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "55",
+    "call_flow": "10",
+    "comm": "0",
+    "policy": "25",
+    "objections": "0",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Critical",
+    "feedback": "The agent was polite and professional while explaining services, but did not fully address the customer\u2019s urgent same-day request. Better active listening and clarification could have prevented the misunderstanding and improved call outcome. 1/27",
+    "markdowns": [
+      {
+        "items": [
+          "Objections Rebuttal"
+        ],
+        "comment": "Agent was not able to handle the objection at all. There is still a chance at 2:22 but agent only highlighted the limitations of the service, rather than mentioning that  we are the fastest in the industry to come out or give value statements."
+      }
+    ]
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003119648",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "1/25 - Overall a great job here, John! Could be just a bit better in the cross sells, offering stronger pitches and explaining how he can add quotes for additional services we offer on the app.",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003122163",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "20",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Nice job confirming verification, acknowledging the customer\u2019s willingness, and establishing rapport right away.  01/27",
+    "markdowns": [
+      {
+        "items": [
+          "Dead Air"
+        ],
+        "comment": "You advised the customer the hold would be brief, however, multiple extended holds occurred (2:42\u20133:28, 4:01\u20134:19, 4:42\u20135:29), with additional questions asked after each return. This created unnecessary dead air and disrupted pacing and clarity. No Tier 1 inquiry was observed, and documentation was minimal despite the customer clearly requesting sidewalk and walkway snow removal. Please gather all details upfront, utilize Tier 1 when needed, and document thoroughly to avoid repeated holds and improve overall call flow."
+      }
+    ]
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003123436",
+    "agent": "Mariella Carpio",
+    "type": "Callback",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "You were thorough with almost all the verification and good job for following the callback script. 01/28",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003123906",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Krizthan did well on this call. Great job on assisting the customer needs.  1.29",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003123032",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Good job on managing the interaction exceptionally well, combining empathy, clarity, alignment. 1/28",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003121805",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Jared did well on this call. Could've use more opportunity to handle the objection again. 1.27",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003121747",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Mariella did well on the call. 1.27",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003122179",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Stephen did well on the call. 1.27",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003124394",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Spoke with both professionalism and care. 1/29",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003123396",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "80",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "0",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "You handled the call well.Your tone was good. probed for needs, and gave assurance but the customer doesn\u2019t need mowing. 01/28",
+    "markdowns": [
+      {
+        "items": [
+          "Objections Rebuttal"
+        ],
+        "comment": "Objections: The customer objected, but the response focused on process and policy rather than their needs. Acknowledge objections, probe for details, and offer a value-based solution to keep the conversation consultative. The agent did not reframe policy, which led to disengagement."
+      }
+    ]
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003121499",
+    "agent": "Jer Longno",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "1/27 - Jer you maintained such a great tone and positive attitude throughout this call, using positive phrasing in your objection handling, awesome job!!",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003122304",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "1/27 - We didn't get a proper chance to objection handle on this call, but we were doing a great job moving through the call and policy.",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003120048",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job on this call\u2014the agent built good rapport and clearly explained services. 1/26",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003128545",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Keep that professional and clear tone. The agent offered useful information and reassurance but should streamline lengthy explanations to enhance engagement and rapport. 2/3",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003131967",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Win",
+    "score": "80",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "0",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Stephen communicated well with the customer. Although he need some improvement on making sure that we set proper expectations to the customer. 2.6",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003128814",
+    "agent": "Jer Longno",
+    "type": "Callback",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "2/3 - Awesome tone and positive helpful attitude, Jer! Overall we moved through the call well, the cross sells were a little mixed in throughout, which is totally fine, I like how you framed things to be sure to ask about all cross sells, just be sure we don't leave any out by skipping around. :)",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003129758",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "2/4 - Overall you did an excellent job moving through this call and creating quotes for the customer! We maintained a helpful and positive atittude throughout! Just want to note that it's totally okay to use information the customer has already given you and just verify rather than ask certain things. For example, this is a restaurant, so we could say something like \"And there are no pets, right?\" rather than asking if there are pets. ",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003131986",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "2/6 - Such an excellent job on this call, Jared!! Great job through the cross sells with strong positive pitches! Awesome tone and helpful attitude!!",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003128252",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "You made a small effort to relate to the customer through laughter. 02/03",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003126804",
+    "agent": "Jer Longno",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Between 8:32 and 10:19, she should shorten her explanation. Overly detailed responses tend to overwhelm customers and lose their attention. Focus on delivering the key solution points clearly and checking for understanding before adding more details. 2.2",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003126618",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "92",
+    "call_flow": "7",
+    "comm": "20",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "2/1 - Overall, we were definitely very kind and helpful on this call, and it was a good interaction that will hopefully lead to the customer signing up later. :) We did just have a fairly weak attempt to handle the objection, so we could have pushed urgency just a bit more and given benefits to going ahead and getting on schedule rather than waiting until next month, and we did have the long dead airs and a bit of a distracted start to the call, so just want to watch out for that. ",
+    "markdowns": [
+      {
+        "items": [
+          "Greeting/Closing"
+        ],
+        "comment": "Call Flow: We just didn't answer this call within 5 seconds, the customer had to speak first."
+      },
+      {
+        "items": [
+          "Dead Air"
+        ],
+        "comment": "Communication: We just had some instances of long dead air on this call with know update or progress report back to the customer ever 30 seconds or so. In this case, while we were waiting for the retrace, we could have gone over the 3 cut min policy/LGF policy to use up that time we were waiting instead of having the customer wait alone."
+      }
+    ]
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003126941",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "2/2 - We did attempt some objection handling here but struggled to really reach the customer with a solution since his main reason for the objection was just the expensive price. In the end we did highlight the savings with the 19$ mow so good job there! While I do love how you have made the price bucket and script in your own words, just want to keep in mind that it's totally okay to keep it short and sweet if the customer is rushing or just wanting basic price info.",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003132414",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "July did well on the call. 2.7",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003130200",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job keeping the call organized and in control from start to finish. There are just a few small areas where you could speak a bit more concisely and avoid repeating information. 2/5",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003130825",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "20",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "She performed well on the call, particularly in setting correct and proper expectations with the customer. However, her communication pacing was too slow, which led to customer frustration as the call extended to 15 minutes. To improve the overall experience, she should focus on delivering information more efficiently and being mindful of the customer's time. Moving through key points more quickly while maintaining clarity will help keep customers engaged and satisfied.2.5",
+    "markdowns": [
+      {
+        "items": [
+          "Professionalism"
+        ],
+        "comment": "Communication: Professionalism: Throughout the call, her communication pacing was too slow, which frustrated the customer. The call extended to 15 minutes, causing noticeable customer frustration. She should work on delivering information more efficiently and being mindful of the customer's time to keep interactions concise and move through points more quickly."
+      }
+    ]
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003130818",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "75",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "You provided the price and explained the service clearly, but the customer declined. Additionally, the agent submitted a second recording, which is no longer allowed, so that affects compliance. Would this be a glitch? You should be proactive in handling the objection.",
+    "markdowns": [
+      {
+        "items": [
+          "Critical: Disposition - Impact"
+        ],
+        "comment": "Price"
+      }
+    ]
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003127025",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Margie was professional, friendly, and thorough in explaining services and guiding the customer, though some explanations were lengthy and could be simplified for clarity. 2/2",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003128536",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job confirming all details and explaining the next steps for pressure washing clearly. You respected the customer\u2019s timeline and offered flexible options to book in the future, which helps maintain rapport. For future calls, you could briefly highlight how other services can complement their needs without pushing, keeping the focus on the customer\u2019s priorities. 02/06",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003130616",
+    "agent": "Stephen Tolero",
+    "type": "Callback",
+    "result": "Loss",
+    "score": "90",
+    "call_flow": "10",
+    "comm": "15",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "You maintained a professional tone, clearly explained pricing and the 3-service minimum, and verified all details accurately. You also made consistent attempts to move the sale forward while staying calm and courteous. Great job keeping the call structured and professional. We conducted the call professionally and provided clear information, but created an unrealistic expectation by naming a specific pro and exact dates, implying a guaranteed assignment that the platform likely cannot fully promise. 02/05",
+    "markdowns": [
+      {
+        "items": [
+          "Rapport"
+        ],
+        "comment": "Communication: The customer\u2019s main concern was whether Kevin Adams was currently active and available. The agent never answered this, instead mentioning Steven with specific dates, which sidesteps the question and implies a guaranteed assignment. This left the customer\u2019s need unaddressed."
+      }
+    ]
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003137402",
+    "agent": "Jer Longno",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Thoughtful, patient, and value-focused. Multiple rebuttals were appropriate;  you were persistent in presenting value, not pushy. 02/11",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003136779",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job on handling the call well. Conversation was organized and easy to follow. There was a small moment where the explanation about pausing service was a bit unclear, but it didn\u2019t cause any real confusion or slow things down. 2/11",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003138546",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "He did well on the call. 2.12",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003133563",
+    "agent": "Jer Longno",
+    "type": "EC",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "She did well on assisting the customer needs on this call. 2.9",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003132986",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "He did well on the call. 2.8",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003135161",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "She did well on the call. A bit lengthy as usual with the explanations but still she did well.  2.10",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003134704",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "We handled the call exceptionally well, effectively balancing listening, probing, educating, and providing solutions, while acknowledging and addressing customer objections in a thoughtful, customer-centric manner, all with a consistently professional and positive tone. 02/09",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003134140",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job maintaining steady call control throughout the interaction, with only very minor clarity and pacing issues noted.",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003134609",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job demonstrating professional tone, clear call control, and structured explanations, with only very minor phrasing and clarity issues around scheduling.2/9",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003138941",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Win",
+    "score": "67",
+    "call_flow": "7",
+    "comm": "25",
+    "policy": "0",
+    "objections": "20",
+    "sales": "20",
+    "setup": "15",
+    "experience": "Good",
+    "feedback": "2/12 - I really appreciate the effort you're putting into making the script your own and building rapport on your calls, Mhargie! I love the little bits of your personality you're putting in, like your dog having their 1st birthday in December, awww! You do a great job maintaining call control and highlighting benefits of our service and explaining things to your customer! I just want to be sure we're giving good information in a concise way for our customers because many of them are trying to keep the conversation pretty short. Although this customer didn't outright tell you to hurry up, a few times I could tell he was wanting things to move forward faster, so we just want to create that balance where we're considerate of time but also giving thorough info. :) ",
+    "markdowns": [
+      {
+        "items": [
+          "Intro Probing"
+        ],
+        "comment": "Call Flow: We just didn't ask the question part of the Intro Probing Question. I love how you gave examples of other services we do, we just need to ask if they want a free quote for anything else, rather than just telling them it's something we can do."
+      },
+      {
+        "items": [
+          "48 Hr Policy"
+        ],
+        "comment": "Policy: We just forgot to cover the 48 Hr Policy on this SA call."
+      },
+      {
+        "items": [
+          "Customer Name"
+        ],
+        "comment": "Setup: We just didn't have the first letter of the customer's first name capitalized correctly on this admin."
+      }
+    ]
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003138379",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job demonstrating professionalism, thoroughness, and proactive service. The agent successfully secured the booking while keeping strong rapport with the customer. A few minor improvements could make the conversation even smoother like simplifying phrasing and reduce minor repetitions. 2/12",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003140196",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "We handled the call well, probing effectively, confirming property details, and explaining policies clearly. They maintained professionalism, managed the payment process patiently, and successfully closed the sale. 02/13",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003133160",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "We handled the call professionally, clearly explained the service, confirmed all details, addressed the customer\u2019s payment concerns, and successfully booked the service.02/08",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003137834",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "2/12 - This customer needed a bunch of services other than mowing, but they just weren't available in his area. I really like how knowledgeable and professional you sounded here, and appreciate that you did offer to help him out by trying any SA service and adding MQs for what he wanted. ",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003136883",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "The structure and fundamentals were strong. The main gap was deeper objection handling and a stronger close. 02/11",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003148483",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Your questions and suggested solution matched the customer\u2019s needs well. 02/21",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003147712",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Win",
+    "score": "0",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Accommodating with customer, sounded really helpful.2/20",
+    "markdowns": [
+      {
+        "items": [
+          "Critical: Disposition - Metrics"
+        ],
+        "comment": "The call is not a win call by agent. Customer signed up by herself. So, the call should not be dispositioned as EC Multiple services."
+      }
+    ]
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003145802",
+    "agent": "Jer Longno",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "20",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good greeting, accommodating with Customer. 2/19",
+    "markdowns": [
+      {
+        "items": [
+          "Professionalism"
+        ],
+        "comment": "Communication: There were noticeable technical or internet issues affecting the agent during most parts of the call, particularly around 1:40, after which the call disconnected. Please ensure your headset and internet connection are properly checked before taking calls. Thank you."
+      }
+    ]
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003143962",
+    "agent": "Jer Longno",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Great job verifying the customer\u2019s details, confirming service instructions, and probing for additional services like mowing. To improve, make sure scheduling instructions are fully clear (how to contact the pro via app/portal) and continue streamlining phrasing for more confident delivery. 02/17",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003143425",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "She did well on this call. Great job! 2.17",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003142358",
+    "agent": "Lorien Lozada",
+    "type": "EC",
+    "result": "Win",
+    "score": "90",
+    "call_flow": "10",
+    "comm": "15",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Polite, empathetic, and professional; confirmed details, addressed concerns, explained pricing and next steps, and reassured the customer. Rapport was positive. 02/16",
+    "markdowns": [
+      {
+        "items": [
+          "Presentation",
+          "Dead Air"
+        ],
+        "comment": "Communication: There was also ~60 seconds of dead air (9:28\u201310:28), exceeding recommended silence limits and impacting the customer experience. We repeatedly said variations of \u201cMaybe I can help you with that\u201d (0:41, 1:15, 1:49). Using this phrasing while offering services or cross-sells projects uncertainty rather than confidence.\nCoaching: We repeatedly interrupted the customer (\u201cGo ahead\u2026 I\u2019m sorry\u2026\u201d). T"
+      }
+    ]
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003147077",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Great job! This was a functional and professional call. 02/16",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003144948",
+    "agent": "Mhargie Castro",
+    "type": "EC",
+    "result": "Win",
+    "score": "80",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "0",
+    "experience": "Excellent",
+    "feedback": "She did well on the call. However she just forgot to verify property details for the new address. 2.18",
+    "markdowns": [
+      {
+        "items": [
+          "Service Set Up"
+        ],
+        "comment": "Setup: Service Set Up: We didn't set up property details for the new property on admin."
+      }
+    ]
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003144743",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Professionalism, and structured communication were strong. 02/18",
+    "markdowns": []
+  }
+];
+
+const EMBEDDED_DATA = [
+  {
+    "Agent": "Jared Mirando",
+    "Conversion All In %": "0.00%",
+    "Conversion Starter %": "0.00%",
+    "Conversion Love %": "0.00%",
+    "Attach All In %": "",
+    "Attach All In #": "0",
+    "Mow Sales": "0",
+    "EC Upsell %": "0.00%",
+    "EC Wins": "0",
+    "QA Score (Avg)": "95",
+    "QA Audits": "6",
+    "QA Win Rate": "50.00%",
+    "Ready %": "N/A",
+    "Avg ACW": "N/A",
+    "Meal Time": "0:02:26",
+    "Over Lunch": "OK",
+    "Break Time": "0:00:02",
+    "Over Break": "OK",
+    "Login Time": "\u2014",
+    "Logout Time": "\u2014",
+    "QA %": "100.00%",
+    "Audits": "2",
+    "Total Score %": "200.00%",
+    "Overall Rank": "1",
+    "Team Rank": "1",
+    "All In Calls": "47",
+    "Total Wins": "0",
+    "EC Total Calls": "1"
+  },
+  {
+    "Agent": "Jer Longno",
+    "Conversion All In %": "2.86%",
+    "Conversion Starter %": "3.23%",
+    "Conversion Love %": "0.00%",
+    "Attach All In %": "100.00%",
+    "Attach All In #": "1",
+    "Mow Sales": "1",
+    "EC Upsell %": "100.00%",
+    "EC Wins": "1",
+    "QA Score (Avg)": "99.28571429",
+    "QA Audits": "7",
+    "QA Win Rate": "42.86%",
+    "Ready %": "N/A",
+    "Avg ACW": "N/A",
+    "Meal Time": "0:08:48",
+    "Over Lunch": "OK",
+    "Break Time": "-",
+    "Over Break": "OK",
+    "Login Time": "\u2014",
+    "Logout Time": "\u2014",
+    "QA %": "98.75%",
+    "Audits": "4",
+    "Total Score %": "395.00%",
+    "Overall Rank": "11",
+    "Team Rank": "5",
+    "All In Calls": "35",
+    "Total Wins": "1",
+    "EC Total Calls": "1"
+  },
+  {
+    "Agent": "John Coronel",
+    "Conversion All In %": "16.67%",
+    "Conversion Starter %": "5.00%",
+    "Conversion Love %": "44.44%",
+    "Attach All In %": "66.67%",
+    "Attach All In #": "2",
+    "Mow Sales": "3",
+    "EC Upsell %": "",
+    "EC Wins": "0",
+    "QA Score (Avg)": "90.33333333",
+    "QA Audits": "6",
+    "QA Win Rate": "33.33%",
+    "Ready %": "N/A",
+    "Avg ACW": "N/A",
+    "Meal Time": "0:03:57",
+    "Over Lunch": "OK",
+    "Break Time": "-",
+    "Over Break": "OK",
+    "Login Time": "\u2014",
+    "Logout Time": "\u2014",
+    "QA %": "98.33%",
+    "Audits": "3",
+    "Total Score %": "295.00%",
+    "Overall Rank": "12",
+    "Team Rank": "6",
+    "All In Calls": "30",
+    "Total Wins": "5",
+    "EC Total Calls": "0"
+  },
+  {
+    "Agent": "July Holgado",
+    "Conversion All In %": "16.00%",
+    "Conversion Starter %": "10.53%",
+    "Conversion Love %": "40.00%",
+    "Attach All In %": "0.00%",
+    "Attach All In #": "0",
+    "Mow Sales": "4",
+    "EC Upsell %": "",
+    "EC Wins": "0",
+    "QA Score (Avg)": "100",
+    "QA Audits": "4",
+    "QA Win Rate": "25.00%",
+    "Ready %": "N/A",
+    "Avg ACW": "N/A",
+    "Meal Time": "0:07:20",
+    "Over Lunch": "OK",
+    "Break Time": "-",
+    "Over Break": "OK",
+    "Login Time": "\u2014",
+    "Logout Time": "\u2014",
+    "QA %": "100.00%",
+    "Audits": "2",
+    "Total Score %": "200.00%",
+    "Overall Rank": "1",
+    "Team Rank": "1",
+    "All In Calls": "25",
+    "Total Wins": "4",
+    "EC Total Calls": "0"
+  },
+  {
+    "Agent": "Krizthan Pearl Ello",
+    "Conversion All In %": "9.76%",
+    "Conversion Starter %": "3.23%",
+    "Conversion Love %": "10.00%",
+    "Attach All In %": "66.67%",
+    "Attach All In #": "2",
+    "Mow Sales": "3",
+    "EC Upsell %": "",
+    "EC Wins": "0",
+    "QA Score (Avg)": "95.83333333",
+    "QA Audits": "6",
+    "QA Win Rate": "50.00%",
+    "Ready %": "N/A",
+    "Avg ACW": "N/A",
+    "Meal Time": "0:09:30",
+    "Over Lunch": "OK",
+    "Break Time": "-",
+    "Over Break": "OK",
+    "Login Time": "\u2014",
+    "Logout Time": "\u2014",
+    "QA %": "100.00%",
+    "Audits": "2",
+    "Total Score %": "200.00%",
+    "Overall Rank": "1",
+    "Team Rank": "1",
+    "All In Calls": "41",
+    "Total Wins": "4",
+    "EC Total Calls": "0"
+  },
+  {
+    "Agent": "Lorien Lozada",
+    "Conversion All In %": "1.82%",
+    "Conversion Starter %": "2.38%",
+    "Conversion Love %": "0.00%",
+    "Attach All In %": "",
+    "Attach All In #": "0",
+    "Mow Sales": "0",
+    "EC Upsell %": "50.00%",
+    "EC Wins": "1",
+    "QA Score (Avg)": "97.5",
+    "QA Audits": "6",
+    "QA Win Rate": "50.00%",
+    "Ready %": "N/A",
+    "Avg ACW": "N/A",
+    "Meal Time": "0:02:43",
+    "Over Lunch": "OK",
+    "Break Time": "-",
+    "Over Break": "OK",
+    "Login Time": "\u2014",
+    "Logout Time": "\u2014",
+    "QA %": "95.00%",
+    "Audits": "2",
+    "Total Score %": "190.00%",
+    "Overall Rank": "28",
+    "Team Rank": "7",
+    "All In Calls": "55",
+    "Total Wins": "1",
+    "EC Total Calls": "2"
+  },
+  {
+    "Agent": "Mariella Carpio",
+    "Conversion All In %": "6.12%",
+    "Conversion Starter %": "5.26%",
+    "Conversion Love %": "9.09%",
+    "Attach All In %": "50.00%",
+    "Attach All In #": "1",
+    "Mow Sales": "2",
+    "EC Upsell %": "",
+    "EC Wins": "0",
+    "QA Score (Avg)": "99.16666667",
+    "QA Audits": "6",
+    "QA Win Rate": "50.00%",
+    "Ready %": "N/A",
+    "Avg ACW": "N/A",
+    "Meal Time": "0:06:45",
+    "Over Lunch": "OK",
+    "Break Time": "-",
+    "Over Break": "OK",
+    "Login Time": "\u2014",
+    "Logout Time": "\u2014",
+    "QA %": "100.00%",
+    "Audits": "2",
+    "Total Score %": "200.00%",
+    "Overall Rank": "1",
+    "Team Rank": "1",
+    "All In Calls": "49",
+    "Total Wins": "3",
+    "EC Total Calls": "0"
+  },
+  {
+    "Agent": "Mhargie Castro",
+    "Conversion All In %": "6.12%",
+    "Conversion Starter %": "5.88%",
+    "Conversion Love %": "7.69%",
+    "Attach All In %": "50.00%",
+    "Attach All In #": "2",
+    "Mow Sales": "4",
+    "EC Upsell %": "0.00%",
+    "EC Wins": "0",
+    "QA Score (Avg)": "92.75",
+    "QA Audits": "8",
+    "QA Win Rate": "50.00%",
+    "Ready %": "N/A",
+    "Avg ACW": "N/A",
+    "Meal Time": "-",
+    "Over Lunch": "OK",
+    "Break Time": "0:01:04",
+    "Over Break": "OK",
+    "Login Time": "\u2014",
+    "Logout Time": "\u2014",
+    "QA %": "86.75%",
+    "Audits": "4",
+    "Total Score %": "347.00%",
+    "Overall Rank": "47",
+    "Team Rank": "8",
+    "All In Calls": "49",
+    "Total Wins": "3",
+    "EC Total Calls": "3"
+  },
+  {
+    "Agent": "Stephen Tolero",
+    "Conversion All In %": "6.00%",
+    "Conversion Starter %": "8.33%",
+    "Conversion Love %": "0.00%",
+    "Attach All In %": "100.00%",
+    "Attach All In #": "1",
+    "Mow Sales": "1",
+    "EC Upsell %": "",
+    "EC Wins": "0",
+    "QA Score (Avg)": "78.33333333",
+    "QA Audits": "6",
+    "QA Win Rate": "50.00%",
+    "Ready %": "N/A",
+    "Avg ACW": "N/A",
+    "Meal Time": "0:04:31",
+    "Over Lunch": "OK",
+    "Break Time": "-",
+    "Over Break": "OK",
+    "Login Time": "\u2014",
+    "Logout Time": "\u2014",
+    "QA %": "66.67%",
+    "Audits": "3",
+    "Total Score %": "200.00%",
+    "Overall Rank": "56",
+    "Team Rank": "9",
+    "All In Calls": "50",
+    "Total Wins": "3",
+    "EC Total Calls": "0"
+  }
+];
+
+function renderSummary(agents) {
+  const convPcts   = agents.map(a => pct(a['Conversion All In %']));
+  const starterPcts= agents.map(a => pct(a['Conversion Starter %']));
+  const lovePcts   = agents.map(a => pct(a['Conversion Love %']));
+  const attachPcts = agents.map(a => pct(a['Attach All In %']));
+  const ecPcts     = agents.map(a => pct(a['EC Upsell %']));
+  const totalAudits= agents.reduce((s, a) => s + (parseInt(a['Audits']) || parseInt(a['QA Audits']) || 0), 0);
+  const totalMow   = agents.reduce((s, a) => s + (parseInt(a['Mow Sales']) || 0), 0);
+  const totalEC    = agents.reduce((s, a) => s + (parseInt(a['EC Wins']) || 0), 0);
+  const totalAttach= agents.reduce((s, a) => s + (parseInt(a['Attach All In #']) || 0), 0);
+
+  // Weighted QA average: sum(Total Score %) / sum(Audits)
+  let qaScoreSum = 0, qaAuditSum = 0;
+  for (const a of agents) {
+    const ts = parseFloat((a['Total Score %'] || '').replace('%',''));
+    const au = parseInt(a['Audits']) || 0;
+    if (!isNaN(ts) && au > 0) { qaScoreSum += ts; qaAuditSum += au; }
+  }
+  const avgQA = qaAuditSum > 0 ? qaScoreSum / qaAuditSum : null;
+
+  // True aggregate attach: total attach wins / total mow sales
+  const avgAttach = totalMow > 0 ? (totalAttach / totalMow * 100) : null;
+
+  // True aggregate conversion: total wins / total all-in calls
+  const totalConvWins  = agents.reduce((s,a) => s + (parseInt(a['Total Wins']  ) || 0), 0);
+  const totalConvCalls = agents.reduce((s,a) => s + (parseInt(a['All In Calls']) || 0), 0);
+  const avgConv  = totalConvCalls > 0 ? (totalConvWins / totalConvCalls * 100) : avg(convPcts.filter(v=>v!==null));
+
+  const avgStarter = avg(starterPcts.filter(v=>v!==null));
+  const avgLove    = avg(lovePcts.filter(v=>v!==null));
+
+  // True aggregate EC: total wins / total EC calls (falls back to simple avg if EC Total Calls missing)
+  const totalECWins  = agents.reduce((s,a) => s + (parseInt(a['EC Wins']        ) || 0), 0);
+  const totalECCalls = agents.reduce((s,a) => s + (parseInt(a['EC Total Calls'] ) || 0), 0);
+  const avgEC = totalECCalls > 0 ? (totalECWins / totalECCalls * 100) : avg(ecPcts.filter(v=>v!==null));
+
+  const f = (v, d=2) => v !== null ? v.toFixed(d)+'%' : '—';
+  const fqa= v => v !== null ? v.toFixed(2) : '—';
+
+  const topQA   = agents.reduce((b,a) => { const v=getAgentQA(a); const s=v?parseFloat(v):NaN; return !isNaN(s)&&(b===null||s>b.s)?{n:a['Agent'].split(' ')[0],s,v:s.toFixed(1)}:b; }, null);
+  const topConv = agents.reduce((b,a) => { const s=pct(a['Conversion All In %']); return s!==null&&(b===null||s>b.s)?{n:a['Agent'].split(' ')[0],s,v:s.toFixed(2)+'%'}:b; }, null);
+  const topAttach=agents.reduce((b,a) => { const s=pct(a['Attach All In %']); return s!==null&&(b===null||s>b.s)?{n:a['Agent'].split(' ')[0],s,v:s.toFixed(2)+'%'}:b; }, null);
+  const topEC   = agents.reduce((b,a) => { const s=parseInt(a['EC Wins'])||0; return s>=(b?.s||0)?{n:a['Agent'].split(' ')[0],s,v:s+' wins'}:b; }, null);
+
+  return `
+  <div class="team-summary">
+    <div class="summary-card">
+      <h2>Team Conversion</h2>
+      <div class="summary-metrics">
+        <div class="s-metric"><div class="v">${f(avgConv)}</div><div class="l">All In</div></div>
+        <div class="s-metric"><div class="v">${f(avgStarter)}</div><div class="l">Starter</div></div>
+        <div class="s-metric"><div class="v">${f(avgLove)}</div><div class="l">Love</div></div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <h2>Attach</h2>
+      <div class="summary-metrics">
+        <div class="s-metric"><div class="v">${f(avgAttach)}</div><div class="l">Avg %</div></div>
+        <div class="s-metric"><div class="v">${totalAttach}</div><div class="l">Total #</div></div>
+        <div class="s-metric"><div class="v">${totalMow}</div><div class="l">Mow Sales</div></div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <h2>EC Upsell</h2>
+      <div class="summary-metrics">
+        <div class="s-metric"><div class="v">${f(avgEC)}</div><div class="l">Avg EC %</div></div>
+        <div class="s-metric"><div class="v">${totalEC}</div><div class="l">EC Wins</div></div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <h2>QA</h2>
+      <div class="summary-metrics">
+        <div class="s-metric"><div class="v ${qaCls(avgQA?.toFixed(0))}">${fqa(avgQA)}</div><div class="l">Avg Score</div></div>
+        <div class="s-metric"><div class="v">${totalAudits}</div><div class="l">Audits</div></div>
+        <div class="s-metric"><div class="v">${agents.length}</div><div class="l">Agents</div></div>
+      </div>
+    </div>
+    <div class="top-performers" style="grid-column: span 4;">
+      <h2>Top Performers This Cycle</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+        ${topQA ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top QA Score</div><div class="tp-name" style="font-size:15px;margin:4px 0;">${topQA.n}</div><div class="tp-val">${topQA.v}</div></div>` : ''}
+        ${topConv ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top All In Conv</div><div class="tp-name" style="font-size:15px;margin:4px 0;">${topConv.n}</div><div class="tp-val">${topConv.v}</div></div>` : ''}
+        ${topAttach ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top Attach %</div><div class="tp-name" style="font-size:15px;margin:4px 0;">${topAttach.n}</div><div class="tp-val">${topAttach.v}</div></div>` : ''}
+        ${topEC ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Most EC Wins</div><div class="tp-name" style="font-size:15px;margin:4px 0;">${topEC.n}</div><div class="tp-val">${topEC.v}</div></div>` : ''}
+      </div>
+    </div>
+  </div>
+  <div class="section-title">Agents (${agents.length})</div>`;
+}
+
+function scoreCls(s) {
+  const n = parseFloat(s); if (isNaN(n)) return '';
+  if (n >= 95) return 'score-green'; if (n >= 85) return 'score-yellow'; return 'score-red';
+}
+
+function renderQAPanel(agentName, idx) {
+  const audits = QA_DATA.filter(a => a.agent === agentName);
+  if (!audits.length) return `<div class="no-audits">No audits found for this cycle.</div>`;
+  const rows = audits.map(a => {
+    const badge = a.result === 'Win' ? `<span class="win-badge">Win</span>` : `<span class="loss-badge">Loss</span>`;
+    const sc = parseFloat(a.score);
+    const scCls = scoreCls(a.score);
+    const expCls = a.experience === 'Good' ? 'ov-ok' : a.experience === 'Critical' ? 'ov-over' : a.experience ? 'gray' : '';
+    const expBadge = a.experience ? `<div class="ov ${expCls}" style="display:inline-block;margin-bottom:4px;">${a.experience}</div>` : '';
+    const feedback = (expBadge || a.feedback) ? `${expBadge}<div class="feedback-text">${a.feedback || ''}</div>` : '';
+    const scores = [
+      a.call_flow ? `CF: ${a.call_flow}` : '',
+      a.comm      ? `Comm: ${a.comm}` : '',
+      a.policy    ? `Pol: ${a.policy}` : '',
+      a.objections && a.objections !== 'NA' ? `Obj: ${a.objections}` : '',
+      a.sales      && a.sales !== 'NA'      ? `Sales: ${a.sales}` : '',
+      a.setup      && a.setup !== 'NA'      ? `Setup: ${a.setup}` : '',
+    ].filter(Boolean).join(' · ');
+    const mds = (a.markdowns || []);
+    const mdHtml = mds.length
+      ? mds.map(m => {
+          const items = Array.isArray(m.items) ? m.items.join(', ') : m;
+          const cmt   = m.comment ? `<div style="color:#94a3b8;font-size:9px;margin-top:1px;line-height:1.4;">${m.comment}</div>` : '';
+          return `<div style="margin-bottom:4px;"><span style="color:#dc2626;font-size:10px;font-weight:600;">• ${items}</span>${cmt}</div>`;
+        }).join('')
+      : '<span style="color:#d1d5db;font-size:10px;">—</span>';
+    return `<tr>
+      <td>${a.week}</td>
+      <td>${a.type}</td>
+      <td>${badge}</td>
+      <td class="score-cell ${scCls}">${isNaN(sc) ? '—' : sc.toFixed(0)}</td>
+      <td style="font-size:10px;color:#64748b;">${scores}</td>
+      <td>${mdHtml}</td>
+      <td>${feedback}</td>
+    </tr>`;
+  }).join('');
+  return `<table class="qa-table">
+    <thead><tr><th>Week</th><th>Type</th><th>Result</th><th>Score</th><th>Breakdown</th><th>Markdowns</th><th>Feedback</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function attendRow(label, timeVal, overVal, limitMin) {
+  const isNA = !timeVal || timeVal === '—' || timeVal === 'N/A' || timeVal === '';
+  const isOver = overVal && overVal !== '—' && overVal !== 'N/A' && overVal !== 'OK' && overVal.startsWith('OVER');
+  const ovCls = isNA ? 'ov-na' : isOver ? 'ov-over' : 'ov-ok';
+  const ovText = isNA ? '—' : isOver ? overVal : `OK (limit ${limitMin}m)`;
+  return `<div class="attend-item">
+    <div class="al">${label}</div>
+    <div class="at">${isNA ? '<span style="color:#d1d5db">—</span>' : timeVal}</div>
+    <div class="ov ${ovCls}">${ovText}</div>
+  </div>`;
+}
+
+let cardIdx = 0;
+function renderCard(agent) {
+  const rawQA  = getAgentQA(agent);
+  const cls    = qaCls(rawQA);
+  const qlabel = qaLabel(rawQA);
+  const audits = agent['Audits'] || agent['QA Audits'] || '0';
+  const idx = cardIdx++;
+  const agentAudits = QA_DATA.filter(a => a.agent === agent['Agent']).length;
+  const overallRank = agent['Overall Rank'] || '';
+  const teamRank    = agent['Team Rank']    || '';
+  const rankHtml = (overallRank || teamRank)
+    ? `<div class="qa-rank">${overallRank ? `#${overallRank} overall` : ''}${overallRank && teamRank ? ' · ' : ''}${teamRank ? `#${teamRank} team` : ''}</div>`
+    : '';
+  return `
+    <div class="card" data-agent="${agent['Agent']}" data-idx="${idx}">
+      <div class="card-header">
+        <div class="agent-name">${agent['Agent']}</div>
+        <div>
+          <div class="qa-badge ${cls}">QA ${qlabel}</div>
+          ${rankHtml}
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="metric-group">
+          <h3>Conversion</h3>
+          <div class="metric-row"><span class="metric-label">All In</span>${fmtPct(agent['Conversion All In %'])}</div>
+          <div class="metric-row"><span class="metric-label">Starter</span>${fmtPct(agent['Conversion Starter %'])}</div>
+          <div class="metric-row"><span class="metric-label">Love</span>${fmtPct(agent['Conversion Love %'])}</div>
+        </div>
+        <div class="metric-group">
+          <h3>Attach</h3>
+          <div class="metric-row"><span class="metric-label">All In %</span>${fmtPct(agent['Attach All In %'])}</div>
+          <div class="metric-row"><span class="metric-label">All In #</span>${fmtNum(agent['Attach All In #'])}</div>
+          <div class="metric-row"><span class="metric-label">Mow Sales</span>${fmtNum(agent['Mow Sales'])}</div>
+        </div>
+        <div class="metric-group">
+          <h3>EC Upsell</h3>
+          <div class="metric-row"><span class="metric-label">EC %</span>${fmtPct(agent['EC Upsell %'])}</div>
+          <div class="metric-row"><span class="metric-label">EC Wins</span>${fmtNum(agent['EC Wins'])}</div>
+        </div>
+        <div class="metric-group">
+          <h3>Attendance</h3>
+          <div class="metric-row"><span class="metric-label">Login</span>${fmtNum(agent['Login Time'])}</div>
+          <div class="metric-row"><span class="metric-label">Logout</span>${fmtNum(agent['Logout Time'])}</div>
+          <div class="metric-row"><span class="metric-label">Ready %</span>${fmtPct(agent['Ready %'])}</div>
+          <div class="metric-row"><span class="metric-label">Avg ACW</span>${fmtNum(agent['Avg ACW'])}</div>
+        </div>
+      </div>
+      <div class="attend-footer">
+        ${attendRow('Meal', agent['Meal Time'], agent['Over Lunch'], 60)}
+        ${attendRow('Break', agent['Break Time'], agent['Over Break'], 15)}
+      </div>
+      <button class="qa-toggle-btn" onclick="toggleQA(${idx})">
+        <span>QA Audits &amp; Feedback (${agentAudits})</span>
+        <span id="qa-arrow-${idx}">▼</span>
+      </button>
+      <div class="qa-panel" id="qa-panel-${idx}">
+        ${renderQAPanel(agent['Agent'], idx)}
+      </div>
+    </div>`;
+}
+
+let currentFilter = 'all';
+function filterAgents(name) {
+  currentFilter = name;
+  document.querySelectorAll('.filter-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.name === name);
+  });
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.display = (name === 'all' || card.dataset.agent === name) ? '' : 'none';
+  });
+  const summaryEl = document.querySelector('.team-summary');
+  const titleEl   = document.querySelector('.section-title');
+  const gridEl    = document.querySelector('.grid');
+  if (name === 'all') {
+    if (summaryEl) summaryEl.style.display = '';
+    if (titleEl)   titleEl.style.display   = '';
+    if (gridEl)    gridEl.style.gridTemplateColumns = '';
+  } else {
+    if (summaryEl) summaryEl.style.display = 'none';
+    if (titleEl)   titleEl.style.display   = 'none';
+    if (gridEl)    gridEl.style.gridTemplateColumns = 'minmax(300px, 640px)';
+    document.querySelectorAll('.card').forEach(card => {
+      if (card.dataset.agent === name) {
+        const idx = card.dataset.idx;
+        const panel = document.getElementById('qa-panel-' + idx);
+        if (panel && !panel.classList.contains('open')) toggleQA(idx);
+      }
+    });
+  }
+}
+
+function buildFilterBar(agents) {
+  const pills = agents.map(a => {
+    const name  = a['Agent'];
+    const first = name.split(' ')[0];
+    return `<button class="filter-pill" data-name="${name}" onclick="filterAgents('${name}')">${first}</button>`;
+  }).join('');
+  return `<div class="filter-bar"><span class="fb-label">View:</span><button class="filter-pill active" data-name="all" onclick="filterAgents('all')">All Agents</button>${pills}</div>`;
+}
+
+function toggleQA(idx) {
+  const panel = document.getElementById('qa-panel-' + idx);
+  const arrow = document.getElementById('qa-arrow-' + idx);
+  panel.classList.toggle('open');
+  arrow.textContent = panel.classList.contains('open') ? '▲' : '▼';
+}
+
+async function loadData() {
+  const content = document.getElementById('content');
+  try {
+    const agents = EMBEDDED_DATA;
+    if (!agents.length) { content.innerHTML = '<div class="error-msg">No data. Run update_dashboard.py to load latest data.</div>'; return; }
+    cardIdx = 0;
+    content.innerHTML = buildFilterBar(agents) + renderSummary(agents) + '<div class="grid">' + agents.map(renderCard).join('') + '</div>';
+    document.getElementById('lastUpdated').textContent = 'Last refreshed: ' + new Date().toLocaleString();
+  } catch (e) {
+    content.innerHTML = '<div class="error-msg">Error: ' + e.message + '</div>';
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>
