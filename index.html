@@ -1283,6 +1283,7 @@ const EMBEDDED_DATA = [
     "Logout Time": "16:01:12",
     "Report Date": "February 25, 2026",
     "Emergency Time": "0:01:25",
+    "Over Emergency": "OK",
     "QA %": "100.00%",
     "Audits": "3",
     "Total Score %": "300.00%",
@@ -1377,6 +1378,7 @@ const EMBEDDED_DATA = [
     "Logout Time": "15:00:07",
     "Report Date": "February 25, 2026",
     "Emergency Time": "0:09:19",
+    "Over Emergency": "OK",
     "QA %": "100.00%",
     "Audits": "2",
     "Total Score %": "200.00%",
@@ -1409,6 +1411,7 @@ const EMBEDDED_DATA = [
     "Logout Time": "16:00:06",
     "Report Date": "February 25, 2026",
     "Emergency Time": "0:10:28",
+    "Over Emergency": "OVER 10m",
     "QA %": "99.00%",
     "Audits": "3",
     "Total Score %": "297.00%",
@@ -1472,6 +1475,7 @@ const EMBEDDED_DATA = [
     "Logout Time": "16:00:44",
     "Report Date": "February 25, 2026",
     "Emergency Time": "0:11:36",
+    "Over Emergency": "OVER 11m",
     "QA %": "100.00%",
     "Audits": "2",
     "Total Score %": "200.00%",
@@ -1535,6 +1539,7 @@ const EMBEDDED_DATA = [
     "Logout Time": "19:02:48",
     "Report Date": "February 25, 2026",
     "Emergency Time": "0:04:31",
+    "Over Emergency": "OK",
     "QA %": "66.67%",
     "Audits": "3",
     "Total Score %": "200.00%",
@@ -1762,10 +1767,7 @@ function renderCard(agent) {
         </div>
         ${attendRow('Meal', agent['Meal Time'], agent['Over Lunch'], 60)}
         ${attendRow('Break', agent['Break Time'], agent['Over Break'], 30)}
-        <div class="attend-item" style="grid-column:span 2;">
-          <div class="al">Emergency Time</div>
-          <div class="at">${esc(agent['Emergency Time'] || '') || '<span style="color:#d1d5db">—</span>'}</div>
-        </div>
+        <div style="grid-column:span 2;">${attendRow('Emergency Time', agent['Emergency Time'], agent['Over Emergency'], 10)}</div>
       </div>
       <button class="qa-toggle-btn" onclick="toggleQA(${idx})">
         <span>QA Audits &amp; Feedback (${agentAudits})</span>
