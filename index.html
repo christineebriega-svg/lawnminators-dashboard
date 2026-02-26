@@ -1282,17 +1282,17 @@ const EMBEDDED_DATA = [
     "Login Time": "\u2014",
     "Logout Time": "\u2014",
     "QA %": "100.00%",
-    "Audits": "2",
-    "Total Score %": "200.00%",
+    "Audits": "3",
+    "Total Score %": "300.00%",
     "Overall Rank": "1",
     "Team Rank": "1",
-    "All In Calls": "50",
+    "All In Calls": "51",
     "Total Wins": "0",
     "EC Total Calls": "1"
   },
   {
     "Agent": "Jer Longno",
-    "Conversion All In %": "5.00%",
+    "Conversion All In %": "4.88%",
     "Conversion Starter %": "5.71%",
     "Conversion Love %": "0.00%",
     "Attach All In %": "100.00%",
@@ -1314,9 +1314,9 @@ const EMBEDDED_DATA = [
     "QA %": "98.75%",
     "Audits": "4",
     "Total Score %": "395.00%",
-    "Overall Rank": "9",
+    "Overall Rank": "8",
     "Team Rank": "5",
-    "All In Calls": "40",
+    "All In Calls": "41",
     "Total Wins": "2",
     "EC Total Calls": "1"
   },
@@ -1382,8 +1382,8 @@ const EMBEDDED_DATA = [
   },
   {
     "Agent": "Krizthan Pearl Ello",
-    "Conversion All In %": "8.70%",
-    "Conversion Starter %": "2.94%",
+    "Conversion All In %": "8.51%",
+    "Conversion Starter %": "2.86%",
     "Conversion Love %": "8.33%",
     "Attach All In %": "66.67%",
     "Attach All In #": "2",
@@ -1404,16 +1404,16 @@ const EMBEDDED_DATA = [
     "QA %": "99.00%",
     "Audits": "3",
     "Total Score %": "297.00%",
-    "Overall Rank": "8",
+    "Overall Rank": "7",
     "Team Rank": "4",
-    "All In Calls": "46",
+    "All In Calls": "47",
     "Total Wins": "4",
     "EC Total Calls": "0"
   },
   {
     "Agent": "Lorien Lozada",
-    "Conversion All In %": "1.64%",
-    "Conversion Starter %": "2.17%",
+    "Conversion All In %": "1.61%",
+    "Conversion Starter %": "2.13%",
     "Conversion Love %": "0.00%",
     "Attach All In %": "",
     "Attach All In #": "0",
@@ -1436,13 +1436,13 @@ const EMBEDDED_DATA = [
     "Total Score %": "190.00%",
     "Overall Rank": "27",
     "Team Rank": "7",
-    "All In Calls": "61",
+    "All In Calls": "62",
     "Total Wins": "1",
     "EC Total Calls": "3"
   },
   {
     "Agent": "Mariella Carpio",
-    "Conversion All In %": "5.66%",
+    "Conversion All In %": "5.56%",
     "Conversion Starter %": "5.00%",
     "Conversion Love %": "7.69%",
     "Attach All In %": "50.00%",
@@ -1466,7 +1466,7 @@ const EMBEDDED_DATA = [
     "Total Score %": "200.00%",
     "Overall Rank": "1",
     "Team Rank": "1",
-    "All In Calls": "53",
+    "All In Calls": "54",
     "Total Wins": "3",
     "EC Total Calls": "0"
   },
@@ -1488,7 +1488,7 @@ const EMBEDDED_DATA = [
     "Meal Time": "-",
     "Over Lunch": "OK",
     "Break Time": "0:26:51",
-    "Over Break": "OVER 26m",
+    "Over Break": "OK",
     "Login Time": "\u2014",
     "Logout Time": "\u2014",
     "QA %": "86.75%",
@@ -1721,17 +1721,22 @@ function renderCard(agent) {
           <div class="metric-row"><span class="metric-label">EC %</span>${fmtPct(agent['EC Upsell %'])}</div>
           <div class="metric-row"><span class="metric-label">EC Wins</span>${fmtNum(agent['EC Wins'])}</div>
         </div>
-        <div class="metric-group">
-          <h3>Attendance</h3>
-          <div class="metric-row"><span class="metric-label">Login</span>${fmtNum(agent['Login Time'])}</div>
-          <div class="metric-row"><span class="metric-label">Logout</span>${fmtNum(agent['Logout Time'])}</div>
-          <div class="metric-row"><span class="metric-label">Ready %</span>${fmtPct(agent['Ready %'])}</div>
-          <div class="metric-row"><span class="metric-label">Avg ACW</span>${fmtNum(agent['Avg ACW'])}</div>
-        </div>
       </div>
       <div class="attend-footer">
+        <div class="attend-item" style="grid-column: span 2; border-bottom: 1px solid #fed7aa; padding-bottom: 8px; margin-bottom: 4px;">
+          <div class="al">Date</div>
+          <div class="at" style="font-size:13px;">${esc(agent['Report Date'] || '') || '<span style="color:#d1d5db">—</span>'}</div>
+        </div>
+        <div class="attend-item">
+          <div class="al">Login</div>
+          <div class="at">${esc(agent['Login Time'] || '') || '<span style="color:#d1d5db">—</span>'}</div>
+        </div>
+        <div class="attend-item">
+          <div class="al">Logout</div>
+          <div class="at">${esc(agent['Logout Time'] || '') || '<span style="color:#d1d5db">—</span>'}</div>
+        </div>
         ${attendRow('Meal', agent['Meal Time'], agent['Over Lunch'], 60)}
-        ${attendRow('Break', agent['Break Time'], agent['Over Break'], 15)}
+        ${attendRow('Break', agent['Break Time'], agent['Over Break'], 30)}
       </div>
       <button class="qa-toggle-btn" onclick="toggleQA(${idx})">
         <span>QA Audits &amp; Feedback (${agentAudits})</span>
