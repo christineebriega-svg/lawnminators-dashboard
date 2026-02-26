@@ -1952,7 +1952,7 @@ function filterAgents(name) {
   } else {
     if (summaryEl) summaryEl.style.display = 'none';
     if (titleEl)   titleEl.style.display   = 'none';
-    if (gridEl)    gridEl.style.gridTemplateColumns = 'minmax(300px, 640px)';
+    if (gridEl)    gridEl.style.gridTemplateColumns = '';
     document.querySelectorAll('.card').forEach(card => {
       if (card.dataset.agent === name) {
         const idx = card.dataset.idx;
