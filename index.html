@@ -209,13 +209,19 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Rapport"
+          {
+            "label": "Rapport",
+            "severity": "Critical"
+          }
         ],
         "comment": "Customer repeatedly stated: same-day or next-morning snow removal. At 2:03-2:06, Customer explicitly said: \u201cYou didn\u2019t understand what I said.\u201d. Understanding becomes critical when the agent\u2019s failure to process clearly stated information causes repeated misalignment and blocks forward progress. In this case, the agent escalates tension instead of stabilizing it."
       },
       {
         "items": [
-          "Objections Rebuttal"
+          {
+            "label": "Objections Rebuttal",
+            "severity": "No"
+          }
         ],
         "comment": "Agent was not able to handle the objection at all. There is still a chance at 2:22 but agent only highlighted the limitations of the service, rather than mentioning that  we are the fastest in the industry to come out or give value statements."
       }
@@ -256,7 +262,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Dead Air"
+          {
+            "label": "Dead Air",
+            "severity": "No"
+          }
         ],
         "comment": "You advised the customer the hold would be brief, however, multiple extended holds occurred (2:42\u20133:28, 4:01\u20134:19, 4:42\u20135:29), with additional questions asked after each return. This created unnecessary dead air and disrupted pacing and clarity. No Tier 1 inquiry was observed, and documentation was minimal despite the customer clearly requesting sidewalk and walkway snow removal. Please gather all details upfront, utilize Tier 1 when needed, and document thoroughly to avoid repeated holds and improve overall call flow."
       }
@@ -280,7 +289,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Sales"
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
         ],
         "comment": "You forgot to check if she's aware of our other services (lcu etc)"
       }
@@ -406,7 +418,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Objections Rebuttal"
+          {
+            "label": "Objections Rebuttal",
+            "severity": "No"
+          }
         ],
         "comment": "Objections: The customer objected, but the response focused on process and policy rather than their needs. Acknowledge objections, probe for details, and offer a value-based solution to keep the conversation consultative. The agent did not reframe policy, which led to disengagement."
       }
@@ -464,7 +479,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Sales"
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
         ],
         "comment": "Sales: Did not pitch lawnmowing at any part of the call."
       }
@@ -505,7 +523,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Sales"
+          {
+            "label": "Sales",
+            "severity": "Critical"
+          }
         ],
         "comment": "Sales: (6:39) The crew won't let the customer know about the specific schedule that they will arrive. What they will confirm is just the two day window not the specific day."
       }
@@ -580,7 +601,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Sales"
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
         ],
         "comment": "Sales: We failed to provide at least two examples of MQ/LTRS."
       }
@@ -621,13 +645,19 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Greeting/Closing"
+          {
+            "label": "Greeting/Closing",
+            "severity": "No"
+          }
         ],
         "comment": "Call Flow: We just didn't answer this call within 5 seconds, the customer had to speak first."
       },
       {
         "items": [
-          "Dead Air"
+          {
+            "label": "Dead Air",
+            "severity": "No"
+          }
         ],
         "comment": "Communication: We just had some instances of long dead air on this call with know update or progress report back to the customer ever 30 seconds or so. In this case, while we were waiting for the retrace, we could have gone over the 3 cut min policy/LGF policy to use up that time we were waiting instead of having the customer wait alone."
       }
@@ -702,7 +732,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Professionalism"
+          {
+            "label": "Professionalism",
+            "severity": "No"
+          }
         ],
         "comment": "Communication: Professionalism: Throughout the call, her communication pacing was too slow, which frustrated the customer. The call extended to 15 minutes, causing noticeable customer frustration. She should work on delivering information more efficiently and being mindful of the customer's time to keep interactions concise and move through points more quickly."
       }
@@ -726,7 +759,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Critical: Disposition - Impact"
+          {
+            "label": "Critical: Disposition - Impact",
+            "severity": "Critical"
+          }
         ],
         "comment": "Price"
       }
@@ -784,7 +820,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Rapport"
+          {
+            "label": "Rapport",
+            "severity": "No"
+          }
         ],
         "comment": "Communication: The customer\u2019s main concern was whether Kevin Adams was currently active and available. The agent never answered this, instead mentioning Steven with specific dates, which sidesteps the question and implies a guaranteed assignment. This left the customer\u2019s need unaddressed."
       }
@@ -961,19 +1000,28 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Intro Probing"
+          {
+            "label": "Intro Probing",
+            "severity": "No"
+          }
         ],
         "comment": "Call Flow: We just didn't ask the question part of the Intro Probing Question. I love how you gave examples of other services we do, we just need to ask if they want a free quote for anything else, rather than just telling them it's something we can do."
       },
       {
         "items": [
-          "48 Hr Policy"
+          {
+            "label": "48 Hr Policy",
+            "severity": "No"
+          }
         ],
         "comment": "Policy: We just forgot to cover the 48 Hr Policy on this SA call."
       },
       {
         "items": [
-          "Customer Name"
+          {
+            "label": "Customer Name",
+            "severity": "No"
+          }
         ],
         "comment": "Setup: We just didn't have the first letter of the customer's first name capitalized correctly on this admin."
       }
@@ -1031,7 +1079,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Sales"
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
         ],
         "comment": "Sales: We did not ask if the customer needed mowing."
       }
@@ -1106,7 +1157,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Critical: Disposition - Metrics"
+          {
+            "label": "Critical: Disposition - Metrics",
+            "severity": "Critical"
+          }
         ],
         "comment": "The call is not a win call by agent. Customer signed up by herself. So, the call should not be dispositioned as EC Multiple services."
       }
@@ -1130,7 +1184,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Professionalism"
+          {
+            "label": "Professionalism",
+            "severity": "No"
+          }
         ],
         "comment": "Communication: There were noticeable technical or internet issues affecting the agent during most parts of the call, particularly around 1:40, after which the call disconnected. Please ensure your headset and internet connection are properly checked before taking calls. Thank you."
       }
@@ -1188,8 +1245,14 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Presentation",
-          "Dead Air"
+          {
+            "label": "Presentation",
+            "severity": "No"
+          },
+          {
+            "label": "Dead Air",
+            "severity": "No"
+          }
         ],
         "comment": "Communication: There was also ~60 seconds of dead air (9:28\u201310:28), exceeding recommended silence limits and impacting the customer experience. We repeatedly said variations of \u201cMaybe I can help you with that\u201d (0:41, 1:15, 1:49). Using this phrasing while offering services or cross-sells projects uncertainty rather than confidence.\nCoaching: We repeatedly interrupted the customer (\u201cGo ahead\u2026 I\u2019m sorry\u2026\u201d). T"
       }
@@ -1230,7 +1293,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Service Set Up"
+          {
+            "label": "Service Set Up",
+            "severity": "No"
+          }
         ],
         "comment": "Setup: Service Set Up: We didn't set up property details for the new property on admin."
       }
@@ -1271,7 +1337,10 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Intro Probing"
+          {
+            "label": "Intro Probing",
+            "severity": "No"
+          }
         ],
         "comment": "Call Flow: \nIntro Probing: Skipped\nGreeting: (Coaching) Didn't greet the customer within 5 seconds."
       }
@@ -1295,13 +1364,19 @@ const QA_DATA = [
     "markdowns": [
       {
         "items": [
-          "Rapport"
+          {
+            "label": "Rapport",
+            "severity": "No"
+          }
         ],
         "comment": "When the customer explained her prior issue, at 2:08, agent offered a customer support transfer before recognizing she had already resolved it and was asking about a new service \u2014 causing her to re-explain her intent. Active listening is important, you may also clarify before taking action."
       },
       {
         "items": [
-          "Sales"
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
         ],
         "comment": "Did not provide 2 examples of at least 2 services that we do."
       }
@@ -1722,11 +1797,20 @@ function renderQAPanel(agentName, idx) {
       a.setup      && a.setup !== 'NA'      ? `Setup: ${a.setup}` : '',
     ].filter(Boolean).join(' · ');
     const mds = (a.markdowns || []);
+    const SEV_COLOR = { 'Critical': '#7f1d1d', 'Minor Issue': '#ea580c', 'No': '#dc2626' };
     const mdHtml = mds.length
       ? mds.map(m => {
-          const items = Array.isArray(m.items) ? m.items.join(', ') : m;
-          const cmt   = m.comment ? `<div style="color:#94a3b8;font-size:9px;margin-top:1px;line-height:1.4;">${m.comment}</div>` : '';
-          return `<div style="margin-bottom:4px;"><span style="color:#dc2626;font-size:10px;font-weight:600;">• ${items}</span>${cmt}</div>`;
+          const itemsHtml = Array.isArray(m.items)
+            ? m.items.map(item => {
+                const label = typeof item === 'object' ? item.label : item;
+                const sev   = typeof item === 'object' ? item.severity : 'No';
+                const col   = SEV_COLOR[sev] || '#dc2626';
+                const tag   = sev !== 'No' ? ` <span style="font-size:8px;font-weight:500;opacity:0.75;">(${sev})</span>` : '';
+                return `<span style="color:${col};font-size:10px;font-weight:600;">• ${label}${tag}</span>`;
+              }).join('<br>')
+            : `<span style="color:#dc2626;font-size:10px;font-weight:600;">• ${m.items}</span>`;
+          const cmt = m.comment ? `<div style="color:#94a3b8;font-size:9px;margin-top:1px;line-height:1.4;">${m.comment}</div>` : '';
+          return `<div style="margin-bottom:4px;">${itemsHtml}${cmt}</div>`;
         }).join('')
       : '<span style="color:#d1d5db;font-size:10px;">—</span>';
     return `<tr>
@@ -1758,6 +1842,9 @@ function attendRow(label, timeVal, overVal, limitMin) {
   </div>`;
 }
 
+// Below-target thresholds (adjust as needed)
+const THRESHOLDS = { qa: 90, conv: 25, ec: 20 };
+
 let cardIdx = 0;
 function renderCard(agent) {
   const rawQA  = getAgentQA(agent);
@@ -1768,13 +1855,22 @@ function renderCard(agent) {
   const agentAudits = QA_DATA.filter(a => a.agent === agent['Agent']).length;
   const overallRank = agent['Overall Rank'] || '';
   const teamRank    = agent['Team Rank']    || '';
+  // Warning badge
+  const qaVal   = rawQA ? parseFloat(rawQA) : null;
+  const convVal = pct(agent['Conversion All In %']);
+  const ecVal   = pct(agent['EC Upsell %']);
+  const warns = [];
+  if (qaVal   !== null && !isNaN(qaVal)   && qaVal   < THRESHOLDS.qa)   warns.push(`QA ${qaVal.toFixed(0)}%`);
+  if (convVal !== null && !isNaN(convVal) && convVal < THRESHOLDS.conv)  warns.push(`Conv ${convVal.toFixed(0)}%`);
+  if (ecVal   !== null && !isNaN(ecVal)   && ecVal   < THRESHOLDS.ec)    warns.push(`EC ${ecVal.toFixed(0)}%`);
+  const warnBadge = warns.length ? `<div style="margin-top:5px;"><span style="background:#fef3c7;color:#92400e;font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:0.3px;">⚠ ${warns.join(' · ')}</span></div>` : '';
   const rankHtml = (overallRank || teamRank)
     ? `<div class="qa-rank">${overallRank ? `#${esc(overallRank)} overall` : ''}${overallRank && teamRank ? ' · ' : ''}${teamRank ? `#${esc(teamRank)} team` : ''}</div>`
     : '';
   return `
     <div class="card qa-${cls}" data-agent="${esc(agent['Agent'])}" data-idx="${idx}">
       <div class="card-header">
-        <div class="agent-name">${esc(agent['Agent'])}</div>
+        <div><div class="agent-name">${esc(agent['Agent'])}</div>${warnBadge}</div>
         <div>
           <div class="qa-badge ${cls}">QA ${qlabel}</div>
           ${rankHtml}
