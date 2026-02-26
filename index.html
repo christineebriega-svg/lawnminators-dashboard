@@ -111,7 +111,7 @@
   .score-green { color: #15803d; }
   .score-yellow { color: #d97706; }
   .score-red { color: #dc2626; }
-  .feedback-text { max-width: 200px; color: #475569; line-height: 1.5; font-size: 12px; }
+  .feedback-text { color: #475569; line-height: 1.5; font-size: 12px; }
   .no-audits { padding: 14px 18px; color: #94a3b8; font-size: 13px; font-style: italic; }
 </style>
 </head>
@@ -1975,8 +1975,11 @@ function buildFilterBar(agents) {
 function toggleQA(idx) {
   const panel = document.getElementById('qa-panel-' + idx);
   const arrow = document.getElementById('qa-arrow-' + idx);
+  const card  = document.querySelector('.card[data-idx="' + idx + '"]');
   panel.classList.toggle('open');
-  arrow.textContent = panel.classList.contains('open') ? '▲' : '▼';
+  const isOpen = panel.classList.contains('open');
+  arrow.textContent = isOpen ? '▲' : '▼';
+  if (card) card.style.gridColumn = isOpen ? '1 / -1' : '';
 }
 
 async function loadData() {
