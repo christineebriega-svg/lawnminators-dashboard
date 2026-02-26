@@ -1610,7 +1610,6 @@ function renderSummary(agents) {
         <div class="s-metric"><div class="v">${f(avgConv)}</div><div class="l">All In</div></div>
         <div class="s-metric"><div class="v">${f(avgStarter)}</div><div class="l">Starter</div></div>
         <div class="s-metric"><div class="v">${f(avgLove)}</div><div class="l">Love</div></div>
-        <div class="s-metric"><div class="v">${totalConvWins}</div><div class="l">Total Wins</div></div>
       </div>
     </div>
     <div class="summary-card">
@@ -1735,12 +1734,12 @@ function renderCard(agent) {
           <div class="metric-row"><span class="metric-label">All In</span>${fmtPct(agent['Conversion All In %'])}</div>
           <div class="metric-row"><span class="metric-label">Starter</span>${fmtPct(agent['Conversion Starter %'])}</div>
           <div class="metric-row"><span class="metric-label">Love</span>${fmtPct(agent['Conversion Love %'])}</div>
+          <div class="metric-row"><span class="metric-label">Total Wins</span>${fmtNum(agent['Total Wins'])}</div>
         </div>
         <div class="metric-group">
           <h3>Attach</h3>
           <div class="metric-row"><span class="metric-label">All In %</span>${fmtPct(agent['Attach All In %'])}</div>
           <div class="metric-row"><span class="metric-label">All In #</span>${fmtNum(agent['Attach All In #'])}</div>
-          <div class="metric-row"><span class="metric-label">Mow Sales</span>${fmtNum(agent['Mow Sales'])}</div>
         </div>
         <div class="metric-group">
           <h3>EC Upsell</h3>
