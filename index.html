@@ -1273,7 +1273,7 @@ const EMBEDDED_DATA = [
     "QA Score (Avg)": "95",
     "QA Audits": "6",
     "QA Win Rate": "50.00%",
-    "Ready %": "43.12%",
+    "Ready %": "26.07%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:06",
     "Over Lunch": "OK",
@@ -1306,7 +1306,7 @@ const EMBEDDED_DATA = [
     "QA Score (Avg)": "99.28571429",
     "QA Audits": "7",
     "QA Win Rate": "42.86%",
-    "Ready %": "43.41%",
+    "Ready %": "26.50%",
     "Avg ACW": "N/A",
     "Meal Time": "1:00:02",
     "Over Lunch": "OVER 60m",
@@ -1337,7 +1337,7 @@ const EMBEDDED_DATA = [
     "QA Score (Avg)": "89.57142857",
     "QA Audits": "7",
     "QA Win Rate": "42.86%",
-    "Ready %": "N/A",
+    "Ready %": "0.00%",
     "Avg ACW": "N/A",
     "Meal Time": "\u2014",
     "Over Lunch": "\u2014",
@@ -1368,7 +1368,7 @@ const EMBEDDED_DATA = [
     "QA Score (Avg)": "100",
     "QA Audits": "4",
     "QA Win Rate": "25.00%",
-    "Ready %": "35.57%",
+    "Ready %": "21.45%",
     "Avg ACW": "N/A",
     "Meal Time": "1:00:04",
     "Over Lunch": "OVER 60m",
@@ -1401,7 +1401,7 @@ const EMBEDDED_DATA = [
     "QA Score (Avg)": "96",
     "QA Audits": "7",
     "QA Win Rate": "42.86%",
-    "Ready %": "42.18%",
+    "Ready %": "25.51%",
     "Avg ACW": "N/A",
     "Meal Time": "1:00:10",
     "Over Lunch": "OVER 60m",
@@ -1434,7 +1434,7 @@ const EMBEDDED_DATA = [
     "QA Score (Avg)": "97.5",
     "QA Audits": "6",
     "QA Win Rate": "50.00%",
-    "Ready %": "47.47%",
+    "Ready %": "27.03%",
     "Avg ACW": "N/A",
     "Meal Time": "1:00:02",
     "Over Lunch": "OVER 60m",
@@ -1465,7 +1465,7 @@ const EMBEDDED_DATA = [
     "QA Score (Avg)": "99.16666667",
     "QA Audits": "6",
     "QA Win Rate": "50.00%",
-    "Ready %": "45.14%",
+    "Ready %": "27.65%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:24",
     "Over Lunch": "OK",
@@ -1498,7 +1498,7 @@ const EMBEDDED_DATA = [
     "QA Score (Avg)": "92.75",
     "QA Audits": "8",
     "QA Win Rate": "50.00%",
-    "Ready %": "46.42%",
+    "Ready %": "26.48%",
     "Avg ACW": "N/A",
     "Meal Time": "0:55:46",
     "Over Lunch": "OK",
@@ -1529,7 +1529,7 @@ const EMBEDDED_DATA = [
     "QA Score (Avg)": "78.33333333",
     "QA Audits": "6",
     "QA Win Rate": "50.00%",
-    "Ready %": "56.90%",
+    "Ready %": "27.71%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:35",
     "Over Lunch": "OK",
@@ -1597,10 +1597,10 @@ function renderSummary(agents) {
     const tied = agents.filter(a => { const s = scoreFn(a); return s !== null && !isNaN(s) && Math.abs(s - best) < 0.001; });
     return { names: tied.map(a => a['Agent'].split(' ')[0]), s: best, v: fmtFn(best) };
   }
-  const topQA    = (() => { const p = agents.filter(a => { const v=getAgentQA(a); return v && parseFloat(v) >= 99.999; }); return p.length ? { names: p.map(a => a['Agent'].split(' ')[0]), v: '100' } : null; })();
+  const topQA    = topGroup(agents, a => { const v=getAgentQA(a); return v?parseFloat(v):null; }, s => s.toFixed(1));
   const topConv  = topGroup(agents, a => pct(a['Conversion All In %']), s => s.toFixed(2)+'%');
   const topAttach= topGroup(agents, a => pct(a['Attach All In %']), s => s.toFixed(2)+'%');
-  const topEC    = topGroup(agents, a => { const s=parseInt(a['EC Wins'])||0; return s>0?s:null; }, s => s+' wins');
+  const topEC    = topGroup(agents, a => pct(a['EC Upsell %']), s => s.toFixed(2)+'%');
 
   return `
   <div class="team-summary">
@@ -1638,10 +1638,10 @@ function renderSummary(agents) {
     <div class="top-performers" style="grid-column: span 4;">
       <h2>Top Performers This Cycle</h2>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
-        ${topQA ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">100% QA</div><div class="tp-name" style="font-size:${topQA.names.length>1?'14px':'18px'};margin:6px 0;text-align:center;line-height:1.4;">${topQA.names.map(n=>esc(n)).join(' · ')}</div><div class="tp-val">${topQA.v}%</div></div>` : ''}
+        ${topQA ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top QA Score</div><div class="tp-name" style="font-size:${topQA.names.length>1?'14px':'18px'};margin:6px 0;text-align:center;line-height:1.4;">${topQA.names.map(n=>esc(n)).join(' · ')}</div><div class="tp-val">${topQA.v}</div></div>` : ''}
         ${topConv ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top All In Conv</div><div class="tp-name" style="font-size:${topConv.names.length>1?'14px':'18px'};margin:6px 0;text-align:center;line-height:1.4;">${topConv.names.map(n=>esc(n)).join(' · ')}</div><div class="tp-val">${topConv.v}</div></div>` : ''}
         ${topAttach ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top Attach %</div><div class="tp-name" style="font-size:${topAttach.names.length>1?'14px':'18px'};margin:6px 0;text-align:center;line-height:1.4;">${topAttach.names.map(n=>esc(n)).join(' · ')}</div><div class="tp-val">${topAttach.v}</div></div>` : ''}
-        ${topEC ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Most EC Wins</div><div class="tp-name" style="font-size:${topEC.names.length>1?'14px':'18px'};margin:6px 0;text-align:center;line-height:1.4;">${topEC.names.map(n=>esc(n)).join(' · ')}</div><div class="tp-val">${topEC.v}</div></div>` : ''}
+        ${topEC ? `<div class="tp-row" style="display:flex;flex-direction:column;align-items:center;padding:10px;background:#f8fafc;border-radius:8px;border:none;"><div class="tp-label">Top EC Win %</div><div class="tp-name" style="font-size:${topEC.names.length>1?'14px':'18px'};margin:6px 0;text-align:center;line-height:1.4;">${topEC.names.map(n=>esc(n)).join(' · ')}</div><div class="tp-val">${topEC.v}</div></div>` : ''}
       </div>
     </div>
   </div>
