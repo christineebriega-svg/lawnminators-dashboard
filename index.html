@@ -1728,6 +1728,7 @@ function renderQAPanel(agentName, idx) {
       : '<span style="color:#d1d5db;font-size:10px;">—</span>';
     return `<tr>
       <td>${a.week}</td>
+      <td style="font-size:10px;color:#94a3b8;">${a.call_id || '—'}</td>
       <td>${a.type}</td>
       <td>${badge}</td>
       <td class="score-cell ${scCls}">${isNaN(sc) ? '—' : sc.toFixed(0)}</td>
@@ -1737,7 +1738,7 @@ function renderQAPanel(agentName, idx) {
     </tr>`;
   }).join('');
   return `<table class="qa-table">
-    <thead><tr><th>Week</th><th>Type</th><th>Result</th><th>Score</th><th>Breakdown</th><th>Markdowns</th><th>Feedback</th></tr></thead>
+    <thead><tr><th>Week</th><th>Call ID</th><th>Type</th><th>Result</th><th>Score</th><th>Breakdown</th><th>Markdowns</th><th>Feedback</th></tr></thead>
     <tbody>${rows}</tbody>
   </table>`;
 }
