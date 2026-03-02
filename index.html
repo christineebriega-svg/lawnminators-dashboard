@@ -1498,8 +1498,8 @@ const EMBEDDED_DATA = [
   },
   {
     "Agent": "Jer Longno",
-    "Conversion All In %": "",
-    "Conversion Starter %": "",
+    "Conversion All In %": "0.00%",
+    "Conversion Starter %": "0.00%",
     "Conversion Love %": "",
     "Attach All In %": "",
     "Attach All In #": "0",
@@ -1518,7 +1518,7 @@ const EMBEDDED_DATA = [
     "Login Time": "\u2014",
     "Logout Time": "\u2014",
     "Report Date": "March 01, 2026",
-    "All In Calls": "0",
+    "All In Calls": "1",
     "Total Wins": "0",
     "EC Total Calls": "0"
   },
@@ -1580,7 +1580,7 @@ const EMBEDDED_DATA = [
     "Agent": "Krizthan Pearl Ello",
     "Conversion All In %": "0.00%",
     "Conversion Starter %": "0.00%",
-    "Conversion Love %": "",
+    "Conversion Love %": "0.00%",
     "Attach All In %": "",
     "Attach All In #": "0",
     "Mow Sales": "0",
@@ -1598,15 +1598,15 @@ const EMBEDDED_DATA = [
     "Login Time": "\u2014",
     "Logout Time": "\u2014",
     "Report Date": "March 01, 2026",
-    "All In Calls": "1",
+    "All In Calls": "3",
     "Total Wins": "0",
     "EC Total Calls": "0"
   },
   {
     "Agent": "Lorien Lozada",
-    "Conversion All In %": "",
+    "Conversion All In %": "0.00%",
     "Conversion Starter %": "",
-    "Conversion Love %": "",
+    "Conversion Love %": "0.00%",
     "Attach All In %": "",
     "Attach All In #": "0",
     "Mow Sales": "0",
@@ -1624,7 +1624,7 @@ const EMBEDDED_DATA = [
     "Login Time": "\u2014",
     "Logout Time": "\u2014",
     "Report Date": "March 01, 2026",
-    "All In Calls": "0",
+    "All In Calls": "1",
     "Total Wins": "0",
     "EC Total Calls": "0"
   },
@@ -1656,8 +1656,8 @@ const EMBEDDED_DATA = [
   },
   {
     "Agent": "Mhargie Castro",
-    "Conversion All In %": "",
-    "Conversion Starter %": "",
+    "Conversion All In %": "0.00%",
+    "Conversion Starter %": "0.00%",
     "Conversion Love %": "",
     "Attach All In %": "",
     "Attach All In #": "0",
@@ -1676,7 +1676,7 @@ const EMBEDDED_DATA = [
     "Login Time": "\u2014",
     "Logout Time": "\u2014",
     "Report Date": "March 01, 2026",
-    "All In Calls": "0",
+    "All In Calls": "1",
     "Total Wins": "0",
     "EC Total Calls": "0"
   },
@@ -1713,7 +1713,7 @@ function renderSummary(agents) {
   const starterPcts= agents.map(a => pct(a['Conversion Starter %']));
   const lovePcts   = agents.map(a => pct(a['Conversion Love %']));
   const attachPcts = agents.map(a => pct(a['Attach All In %']));
-  const ecPcts     = agents.map(a => pct(a['EC Upsell %']));
+  const ecPcts     = agents.map(a => pct(a['EC Cross-Sell %']));
   const totalAudits= agents.reduce((s, a) => s + (n(a['Audits']) || n(a['QA Audits'])), 0);
   const totalMow   = agents.reduce((s, a) => s + n(a['Mow Sales']), 0);
   const totalEC    = agents.reduce((s, a) => s + n(a['EC Wins']), 0);
@@ -1757,7 +1757,7 @@ function renderSummary(agents) {
   const topQA    = topGroup(agents, a => { const v=getAgentQA(a); return v?parseFloat(v):null; }, s => s.toFixed(1));
   const topConv  = topGroup(agents, a => pct(a['Conversion All In %']), s => s.toFixed(2)+'%');
   const topAttach= topGroup(agents, a => pct(a['Attach All In %']), s => s.toFixed(2)+'%');
-  const topEC    = topGroup(agents, a => pct(a['EC Upsell %']), s => s.toFixed(2)+'%');
+  const topEC    = topGroup(agents, a => pct(a['EC Cross-Sell %']), s => s.toFixed(2)+'%');
 
   return `
   <div class="team-summary">
@@ -1778,7 +1778,7 @@ function renderSummary(agents) {
       </div>
     </div>
     <div class="summary-card">
-      <h2>EC Upsell</h2>
+      <h2>EC Cross-Sell</h2>
       <div class="summary-metrics">
         <div class="s-metric"><div class="v">${f(avgEC)}</div><div class="l">Avg EC %</div></div>
         <div class="s-metric"><div class="v">${totalEC}</div><div class="l">EC Wins</div></div>
@@ -1890,7 +1890,7 @@ function renderCard(agent) {
   // Warning badge
   const qaVal   = rawQA ? parseFloat(rawQA) : null;
   const convVal = pct(agent['Conversion All In %']);
-  const ecVal   = pct(agent['EC Upsell %']);
+  const ecVal   = pct(agent['EC Cross-Sell %']);
   const warns = [];
   if (qaVal   !== null && !isNaN(qaVal)   && qaVal   < THRESHOLDS.qa)   warns.push(`QA ${qaVal.toFixed(0)}%`);
   if (convVal !== null && !isNaN(convVal) && convVal < THRESHOLDS.conv)  warns.push(`Conv ${convVal.toFixed(0)}%`);
@@ -1922,8 +1922,8 @@ function renderCard(agent) {
           <div class="metric-row"><span class="metric-label">All In #</span>${fmtNum(agent['Attach All In #'])}</div>
         </div>
         <div class="metric-group">
-          <h3>EC Upsell</h3>
-          <div class="metric-row"><span class="metric-label">EC %</span>${fmtPct(agent['EC Upsell %'])}</div>
+          <h3>EC Cross-Sell</h3>
+          <div class="metric-row"><span class="metric-label">EC %</span>${fmtPct(agent['EC Cross-Sell %'])}</div>
           <div class="metric-row"><span class="metric-label">EC Wins</span>${fmtNum(agent['EC Wins'])}</div>
         </div>
         <div class="metric-group" style="grid-column: span 2; border-top: 1px solid #f1f5f9; padding-top: 10px;">
