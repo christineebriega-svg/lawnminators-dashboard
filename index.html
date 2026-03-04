@@ -1635,6 +1635,33 @@ const QA_DATA = [
     "experience": "Good",
     "feedback": "Good job on handling the one-time service objection naturally and keeping the customer engaged throughout; minor improvement on slowing down as there is a tendency to speak fast. 2/26.",
     "markdowns": []
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003155276",
+    "agent": "Jared Mirando",
+    "type": "EC",
+    "result": "Loss",
+    "score": "97",
+    "call_flow": "7",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "The agent ran a clean, professional call from start to finish. The tone was warm, the cross sales probe was well-structured, and the unavailability disclosure was delivered without awkwardness or unnecessary apology. The customer left the interaction satisfied and appreciative - which is a good outcome given the circumstances. There were a few moments of dead air during the system checks - not enough to derail the call, but worth being mindful of. Keeping the customer updated with a quick word while navigating the account goes a long way in keeping the energy up. The one mechanical gap was phone verification - the address was confirmed but the phone number was never touched. That's a habit worth locking in on every call regardless of how straightforward the interaction feels. 2.26",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Address Verification",
+            "severity": "No"
+          }
+        ],
+        "comment": "Call Flow: Phone number was never confirmed. For a loss call, phone and address must both be verified. Address was confirmed, phone was not."
+      }
+    ]
   }
 ];
 
@@ -1649,8 +1676,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "1",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Audits": "7",
-    "QA Win Rate": "42.86%",
+    "QA Score (Avg)": "95.875",
+    "QA Audits": "8",
+    "QA Win Rate": "37.50%",
     "Ready %": "75.32%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:20",
@@ -1662,15 +1690,20 @@ const EMBEDDED_DATA = [
     "Report Date": "March 03, 2026",
     "Emergency Time": "0:02:27",
     "Over Emergency": "OK",
+    "QA %": "97.00%",
+    "Audits": "1",
+    "Total Score %": "97.00%",
+    "Overall Rank": "18",
+    "Team Rank": "3",
     "All In Calls": "16",
     "Total Wins": "3",
     "EC Total Calls": "0"
   },
   {
     "Agent": "Jer Longno",
-    "Conversion All In %": "27.27%",
+    "Conversion All In %": "25.00%",
     "Conversion Starter %": "25.00%",
-    "Conversion Love %": "33.33%",
+    "Conversion Love %": "25.00%",
     "Attach All In %": "50.00%",
     "Attach All In #": "1",
     "Mow Sales": "2",
@@ -1691,9 +1724,9 @@ const EMBEDDED_DATA = [
     "QA %": "90.00%",
     "Audits": "1",
     "Total Score %": "90.00%",
-    "Overall Rank": "26",
-    "Team Rank": "4",
-    "All In Calls": "11",
+    "Overall Rank": "27",
+    "Team Rank": "5",
+    "All In Calls": "12",
     "Total Wins": "3",
     "EC Total Calls": "0"
   },
@@ -1724,8 +1757,8 @@ const EMBEDDED_DATA = [
     "QA %": "85.00%",
     "Audits": "2",
     "Total Score %": "170.00%",
-    "Overall Rank": "27",
-    "Team Rank": "5",
+    "Overall Rank": "28",
+    "Team Rank": "6",
     "All In Calls": "16",
     "Total Wins": "0",
     "EC Total Calls": "0"
@@ -1785,7 +1818,7 @@ const EMBEDDED_DATA = [
     "Audits": "1",
     "Total Score %": "80.00%",
     "Overall Rank": "31",
-    "Team Rank": "6",
+    "Team Rank": "7",
     "All In Calls": "11",
     "Total Wins": "1",
     "EC Total Calls": "1"
@@ -1817,13 +1850,13 @@ const EMBEDDED_DATA = [
     "Total Score %": "100.00%",
     "Overall Rank": "1",
     "Team Rank": "1",
-    "All In Calls": "12",
+    "All In Calls": "13",
     "Total Wins": "0",
     "EC Total Calls": "1"
   },
   {
     "Agent": "Mariella Carpio",
-    "Conversion All In %": "20.00%",
+    "Conversion All In %": "16.67%",
     "Conversion Starter %": "33.33%",
     "Conversion Love %": "0.00%",
     "Attach All In %": "0.00%",
@@ -1848,17 +1881,17 @@ const EMBEDDED_DATA = [
     "QA %": "95.00%",
     "Audits": "1",
     "Total Score %": "95.00%",
-    "Overall Rank": "19",
-    "Team Rank": "3",
-    "All In Calls": "5",
+    "Overall Rank": "20",
+    "Team Rank": "4",
+    "All In Calls": "6",
     "Total Wins": "1",
     "EC Total Calls": "0"
   },
   {
     "Agent": "Mhargie Castro",
-    "Conversion All In %": "23.53%",
-    "Conversion Starter %": "23.08%",
-    "Conversion Love %": "25.00%",
+    "Conversion All In %": "21.05%",
+    "Conversion Starter %": "21.43%",
+    "Conversion Love %": "20.00%",
     "Attach All In %": "100.00%",
     "Attach All In #": "3",
     "Mow Sales": "3",
@@ -1875,13 +1908,13 @@ const EMBEDDED_DATA = [
     "Login Time": "7:56:46",
     "Logout Time": "17:00:09",
     "Report Date": "March 03, 2026",
-    "All In Calls": "17",
+    "All In Calls": "19",
     "Total Wins": "4",
     "EC Total Calls": "0"
   },
   {
     "Agent": "Stephen Tolero",
-    "Conversion All In %": "21.43%",
+    "Conversion All In %": "20.00%",
     "Conversion Starter %": "9.09%",
     "Conversion Love %": "0.00%",
     "Attach All In %": "100.00%",
@@ -1908,7 +1941,7 @@ const EMBEDDED_DATA = [
     "Total Score %": "100.00%",
     "Overall Rank": "1",
     "Team Rank": "1",
-    "All In Calls": "14",
+    "All In Calls": "15",
     "Total Wins": "3",
     "EC Total Calls": "0"
   }
