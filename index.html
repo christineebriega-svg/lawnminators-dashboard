@@ -173,7 +173,1646 @@ function esc(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-const QA_DATA = [];
+const QA_DATA = [
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003121519",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "1/27 - Overall we did well on this call and ended on a nice note. One thing we can say when the customer asks if we can send an email with the details: instead of saying no, we can't, we can say what we CAN do like \"We can send details after booking.\" :) ",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003121489",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "55",
+    "call_flow": "10",
+    "comm": "0",
+    "policy": "25",
+    "objections": "0",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Critical",
+    "feedback": "The agent was polite and professional while explaining services, but did not fully address the customer\u2019s urgent same-day request. Better active listening and clarification could have prevented the misunderstanding and improved call outcome. 1/27",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Rapport",
+            "severity": "Critical"
+          }
+        ],
+        "comment": "Customer repeatedly stated: same-day or next-morning snow removal. At 2:03-2:06, Customer explicitly said: \u201cYou didn\u2019t understand what I said.\u201d. Understanding becomes critical when the agent\u2019s failure to process clearly stated information causes repeated misalignment and blocks forward progress. In this case, the agent escalates tension instead of stabilizing it."
+      },
+      {
+        "items": [
+          {
+            "label": "Objections Rebuttal",
+            "severity": "No"
+          }
+        ],
+        "comment": "Agent was not able to handle the objection at all. There is still a chance at 2:22 but agent only highlighted the limitations of the service, rather than mentioning that  we are the fastest in the industry to come out or give value statements."
+      }
+    ]
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003119648",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "1/25 - Overall a great job here, John! Could be just a bit better in the cross sells, offering stronger pitches and explaining how he can add quotes for additional services we offer on the app.",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003122163",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "20",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Nice job confirming verification, acknowledging the customer\u2019s willingness, and establishing rapport right away.  01/27",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Dead Air",
+            "severity": "No"
+          }
+        ],
+        "comment": "You advised the customer the hold would be brief, however, multiple extended holds occurred (2:42\u20133:28, 4:01\u20134:19, 4:42\u20135:29), with additional questions asked after each return. This created unnecessary dead air and disrupted pacing and clarity. No Tier 1 inquiry was observed, and documentation was minimal despite the customer clearly requesting sidewalk and walkway snow removal. Please gather all details upfront, utilize Tier 1 when needed, and document thoroughly to avoid repeated holds and improve overall call flow."
+      }
+    ]
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003123436",
+    "agent": "Mariella Carpio",
+    "type": "Callback",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "You were thorough with almost all the verification and good job for following the callback script. 01/28",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
+        ],
+        "comment": "You forgot to check if she's aware of our other services (lcu etc)"
+      }
+    ]
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003123906",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Krizthan did well on this call. Great job on assisting the customer needs.  1.29",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003123032",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Good job on managing the interaction exceptionally well, combining empathy, clarity, alignment. 1/28",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003121805",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Jared did well on this call. Could've use more opportunity to handle the objection again. 1.27",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003121747",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Mariella did well on the call. 1.27",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003122179",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Stephen did well on the call. 1.27",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003124394",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Spoke with both professionalism and care. 1/29",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003123396",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "80",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "0",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "You handled the call well.Your tone was good. probed for needs, and gave assurance but the customer doesn\u2019t need mowing. 01/28",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Objections Rebuttal",
+            "severity": "No"
+          }
+        ],
+        "comment": "Objections: The customer objected, but the response focused on process and policy rather than their needs. Acknowledge objections, probe for details, and offer a value-based solution to keep the conversation consultative. The agent did not reframe policy, which led to disengagement."
+      }
+    ]
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003121499",
+    "agent": "Jer Longno",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "1/27 - Jer you maintained such a great tone and positive attitude throughout this call, using positive phrasing in your objection handling, awesome job!!",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003122304",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "1/27 - We didn't get a proper chance to objection handle on this call, but we were doing a great job moving through the call and policy.",
+    "markdowns": []
+  },
+  {
+    "week": "2/1/2026",
+    "call_id": "300000003120048",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job on this call\u2014the agent built good rapport and clearly explained services. 1/26",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
+        ],
+        "comment": "Sales: Did not pitch lawnmowing at any part of the call."
+      }
+    ]
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003128545",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Keep that professional and clear tone. The agent offered useful information and reassurance but should streamline lengthy explanations to enhance engagement and rapport. 2/3",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003131967",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Win",
+    "score": "80",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "0",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Stephen communicated well with the customer. Although he need some improvement on making sure that we set proper expectations to the customer. 2.6",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Sales",
+            "severity": "Critical"
+          }
+        ],
+        "comment": "Sales: (6:39) The crew won't let the customer know about the specific schedule that they will arrive. What they will confirm is just the two day window not the specific day."
+      }
+    ]
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003128814",
+    "agent": "Jer Longno",
+    "type": "Callback",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "2/3 - Awesome tone and positive helpful attitude, Jer! Overall we moved through the call well, the cross sells were a little mixed in throughout, which is totally fine, I like how you framed things to be sure to ask about all cross sells, just be sure we don't leave any out by skipping around. :)",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003129758",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "2/4 - Overall you did an excellent job moving through this call and creating quotes for the customer! We maintained a helpful and positive atittude throughout! Just want to note that it's totally okay to use information the customer has already given you and just verify rather than ask certain things. For example, this is a restaurant, so we could say something like \"And there are no pets, right?\" rather than asking if there are pets. ",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003131986",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "2/6 - Such an excellent job on this call, Jared!! Great job through the cross sells with strong positive pitches! Awesome tone and helpful attitude!!",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003128252",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "You made a small effort to relate to the customer through laughter. 02/03",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
+        ],
+        "comment": "Sales: We failed to provide at least two examples of MQ/LTRS."
+      }
+    ]
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003126804",
+    "agent": "Jer Longno",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Between 8:32 and 10:19, she should shorten her explanation. Overly detailed responses tend to overwhelm customers and lose their attention. Focus on delivering the key solution points clearly and checking for understanding before adding more details. 2.2",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003126618",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "92",
+    "call_flow": "7",
+    "comm": "20",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "2/1 - Overall, we were definitely very kind and helpful on this call, and it was a good interaction that will hopefully lead to the customer signing up later. :) We did just have a fairly weak attempt to handle the objection, so we could have pushed urgency just a bit more and given benefits to going ahead and getting on schedule rather than waiting until next month, and we did have the long dead airs and a bit of a distracted start to the call, so just want to watch out for that. ",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Greeting/Closing",
+            "severity": "No"
+          }
+        ],
+        "comment": "Call Flow: We just didn't answer this call within 5 seconds, the customer had to speak first."
+      },
+      {
+        "items": [
+          {
+            "label": "Dead Air",
+            "severity": "No"
+          }
+        ],
+        "comment": "Communication: We just had some instances of long dead air on this call with know update or progress report back to the customer ever 30 seconds or so. In this case, while we were waiting for the retrace, we could have gone over the 3 cut min policy/LGF policy to use up that time we were waiting instead of having the customer wait alone."
+      }
+    ]
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003126941",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "2/2 - We did attempt some objection handling here but struggled to really reach the customer with a solution since his main reason for the objection was just the expensive price. In the end we did highlight the savings with the 19$ mow so good job there! While I do love how you have made the price bucket and script in your own words, just want to keep in mind that it's totally okay to keep it short and sweet if the customer is rushing or just wanting basic price info.",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003132414",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "July did well on the call. 2.7",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003130200",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job keeping the call organized and in control from start to finish. There are just a few small areas where you could speak a bit more concisely and avoid repeating information. 2/5",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003130825",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "20",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "She performed well on the call, particularly in setting correct and proper expectations with the customer. However, her communication pacing was too slow, which led to customer frustration as the call extended to 15 minutes. To improve the overall experience, she should focus on delivering information more efficiently and being mindful of the customer's time. Moving through key points more quickly while maintaining clarity will help keep customers engaged and satisfied.2.5",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Professionalism",
+            "severity": "No"
+          }
+        ],
+        "comment": "Communication: Professionalism: Throughout the call, her communication pacing was too slow, which frustrated the customer. The call extended to 15 minutes, causing noticeable customer frustration. She should work on delivering information more efficiently and being mindful of the customer's time to keep interactions concise and move through points more quickly."
+      }
+    ]
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003130818",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "75",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "You provided the price and explained the service clearly, but the customer declined. Additionally, the agent submitted a second recording, which is no longer allowed, so that affects compliance. Would this be a glitch? You should be proactive in handling the objection.",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Critical: Disposition - Impact",
+            "severity": "Critical"
+          }
+        ],
+        "comment": "Price"
+      }
+    ]
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003127025",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Margie was professional, friendly, and thorough in explaining services and guiding the customer, though some explanations were lengthy and could be simplified for clarity. 2/2",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003128536",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job confirming all details and explaining the next steps for pressure washing clearly. You respected the customer\u2019s timeline and offered flexible options to book in the future, which helps maintain rapport. For future calls, you could briefly highlight how other services can complement their needs without pushing, keeping the focus on the customer\u2019s priorities. 02/06",
+    "markdowns": []
+  },
+  {
+    "week": "2/8/2026",
+    "call_id": "300000003130616",
+    "agent": "Stephen Tolero",
+    "type": "Callback",
+    "result": "Loss",
+    "score": "90",
+    "call_flow": "10",
+    "comm": "15",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "You maintained a professional tone, clearly explained pricing and the 3-service minimum, and verified all details accurately. You also made consistent attempts to move the sale forward while staying calm and courteous. Great job keeping the call structured and professional. We conducted the call professionally and provided clear information, but created an unrealistic expectation by naming a specific pro and exact dates, implying a guaranteed assignment that the platform likely cannot fully promise. 02/05",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Rapport",
+            "severity": "No"
+          }
+        ],
+        "comment": "Communication: The customer\u2019s main concern was whether Kevin Adams was currently active and available. The agent never answered this, instead mentioning Steven with specific dates, which sidesteps the question and implies a guaranteed assignment. This left the customer\u2019s need unaddressed."
+      }
+    ]
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003137402",
+    "agent": "Jer Longno",
+    "type": "EC",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Thoughtful, patient, and value-focused. Multiple rebuttals were appropriate;  you were persistent in presenting value, not pushy. 02/11",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003136779",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job on handling the call well. Conversation was organized and easy to follow. There was a small moment where the explanation about pausing service was a bit unclear, but it didn\u2019t cause any real confusion or slow things down. 2/11",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003138546",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "He did well on the call. 2.12",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003133563",
+    "agent": "Jer Longno",
+    "type": "EC",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "She did well on assisting the customer needs on this call. 2.9",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003132986",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "He did well on the call. 2.8",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003135161",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "She did well on the call. A bit lengthy as usual with the explanations but still she did well.  2.10",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003134704",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "We handled the call exceptionally well, effectively balancing listening, probing, educating, and providing solutions, while acknowledging and addressing customer objections in a thoughtful, customer-centric manner, all with a consistently professional and positive tone. 02/09",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003134140",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job maintaining steady call control throughout the interaction, with only very minor clarity and pacing issues noted.",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003134609",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job demonstrating professional tone, clear call control, and structured explanations, with only very minor phrasing and clarity issues around scheduling.2/9",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003138941",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Win",
+    "score": "67",
+    "call_flow": "7",
+    "comm": "25",
+    "policy": "0",
+    "objections": "20",
+    "sales": "20",
+    "setup": "15",
+    "experience": "Good",
+    "feedback": "2/12 - I really appreciate the effort you're putting into making the script your own and building rapport on your calls, Mhargie! I love the little bits of your personality you're putting in, like your dog having their 1st birthday in December, awww! You do a great job maintaining call control and highlighting benefits of our service and explaining things to your customer! I just want to be sure we're giving good information in a concise way for our customers because many of them are trying to keep the conversation pretty short. Although this customer didn't outright tell you to hurry up, a few times I could tell he was wanting things to move forward faster, so we just want to create that balance where we're considerate of time but also giving thorough info. :) ",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Intro Probing",
+            "severity": "No"
+          }
+        ],
+        "comment": "Call Flow: We just didn't ask the question part of the Intro Probing Question. I love how you gave examples of other services we do, we just need to ask if they want a free quote for anything else, rather than just telling them it's something we can do."
+      },
+      {
+        "items": [
+          {
+            "label": "48 Hr Policy",
+            "severity": "No"
+          }
+        ],
+        "comment": "Policy: We just forgot to cover the 48 Hr Policy on this SA call."
+      },
+      {
+        "items": [
+          {
+            "label": "Customer Name",
+            "severity": "No"
+          }
+        ],
+        "comment": "Setup: We just didn't have the first letter of the customer's first name capitalized correctly on this admin."
+      }
+    ]
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003138379",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job demonstrating professionalism, thoroughness, and proactive service. The agent successfully secured the booking while keeping strong rapport with the customer. A few minor improvements could make the conversation even smoother like simplifying phrasing and reduce minor repetitions. 2/12",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003140196",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "We handled the call well, probing effectively, confirming property details, and explaining policies clearly. They maintained professionalism, managed the payment process patiently, and successfully closed the sale. 02/13",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003133160",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "We handled the call professionally, clearly explained the service, confirmed all details, addressed the customer\u2019s payment concerns, and successfully booked the service.02/08",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
+        ],
+        "comment": "Sales: We did not ask if the customer needed mowing."
+      }
+    ]
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003137834",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "2/12 - This customer needed a bunch of services other than mowing, but they just weren't available in his area. I really like how knowledgeable and professional you sounded here, and appreciate that you did offer to help him out by trying any SA service and adding MQs for what he wanted. ",
+    "markdowns": []
+  },
+  {
+    "week": "2/15/2026",
+    "call_id": "300000003136883",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "The structure and fundamentals were strong. The main gap was deeper objection handling and a stronger close. 02/11",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003148483",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Your questions and suggested solution matched the customer\u2019s needs well. 02/21",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003147712",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Win",
+    "score": "0",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Accommodating with customer, sounded really helpful.2/20",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Critical: Disposition - Metrics",
+            "severity": "Critical"
+          }
+        ],
+        "comment": "The call is not a win call by agent. Customer signed up by herself. So, the call should not be dispositioned as EC Multiple services."
+      }
+    ]
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003145802",
+    "agent": "Jer Longno",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "20",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good greeting, accommodating with Customer. 2/19",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Professionalism",
+            "severity": "No"
+          }
+        ],
+        "comment": "Communication: There were noticeable technical or internet issues affecting the agent during most parts of the call, particularly around 1:40, after which the call disconnected. Please ensure your headset and internet connection are properly checked before taking calls. Thank you."
+      }
+    ]
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003143962",
+    "agent": "Jer Longno",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Great job verifying the customer\u2019s details, confirming service instructions, and probing for additional services like mowing. To improve, make sure scheduling instructions are fully clear (how to contact the pro via app/portal) and continue streamlining phrasing for more confident delivery. 02/17",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003143425",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "She did well on this call. Great job! 2.17",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003142358",
+    "agent": "Lorien Lozada",
+    "type": "EC",
+    "result": "Win",
+    "score": "90",
+    "call_flow": "10",
+    "comm": "15",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Polite, empathetic, and professional; confirmed details, addressed concerns, explained pricing and next steps, and reassured the customer. Rapport was positive. 02/16",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Presentation",
+            "severity": "No"
+          },
+          {
+            "label": "Dead Air",
+            "severity": "No"
+          }
+        ],
+        "comment": "Communication: There was also ~60 seconds of dead air (9:28\u201310:28), exceeding recommended silence limits and impacting the customer experience. We repeatedly said variations of \u201cMaybe I can help you with that\u201d (0:41, 1:15, 1:49). Using this phrasing while offering services or cross-sells projects uncertainty rather than confidence.\nCoaching: We repeatedly interrupted the customer (\u201cGo ahead\u2026 I\u2019m sorry\u2026\u201d). T"
+      }
+    ]
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003147077",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Great job! This was a functional and professional call. 02/16",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003144948",
+    "agent": "Mhargie Castro",
+    "type": "EC",
+    "result": "Win",
+    "score": "80",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "0",
+    "experience": "Excellent",
+    "feedback": "She did well on the call. However she just forgot to verify property details for the new address. 2.18",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Service Set Up",
+            "severity": "No"
+          }
+        ],
+        "comment": "Setup: Service Set Up: We didn't set up property details for the new property on admin."
+      }
+    ]
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003144743",
+    "agent": "Mhargie Castro",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Professionalism, and structured communication were strong. 02/18",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003146193",
+    "agent": "Krizthan Pearl Ello",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "97",
+    "call_flow": "7",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "He did well on the call. 2.19. Just forgot to mention the intro probing. ",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Intro Probing",
+            "severity": "No"
+          }
+        ],
+        "comment": "Call Flow: \nIntro Probing: Skipped\nGreeting: (Coaching) Didn't greet the customer within 5 seconds."
+      }
+    ]
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003141781",
+    "agent": "John Coronel",
+    "type": "EC",
+    "result": "Win",
+    "score": "85",
+    "call_flow": "10",
+    "comm": "15",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job staying calm and professional throughout the call \u2014 the customer felt at ease the whole time. Just a small note: take a moment to fully listen to what the customer is sharing before jumping into action, so you can avoid having to backtrack and keep the call flowing smoothly. 2/16",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Rapport",
+            "severity": "No"
+          }
+        ],
+        "comment": "When the customer explained her prior issue, at 2:08, agent offered a customer support transfer before recognizing she had already resolved it and was asking about a new service \u2014 causing her to re-explain her intent. Active listening is important, you may also clarify before taking action."
+      },
+      {
+        "items": [
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
+        ],
+        "comment": "Did not provide 2 examples of at least 2 services that we do."
+      }
+    ]
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003144971",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Jared maintained a polite and professional tone throughout the call, which helped create a respectful customer interaction. As an opportunity for growth, we can continue refining how we phrase our value statements and present our solutions so they feel clearer to our customers. 18/02",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003147922",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "The agent was professional, polite, and knowledgeable, clearly explaining services, pricing, and policies. The call was mostly transactional with minimal rapport, and the customer\u2019s urgency wasn\u2019t fully resolved, but it ended courteously. 20/02",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003146979",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "Stephen was professional and process-driven, but improvement is needed in clarity, confidence, and objection handling to create a stronger overall customer experience. 19/02",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003147137",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "It was a confident pitch. Moving forward, focus on keeping your explanations clear, concise, and on point. 2/20",
+    "markdowns": []
+  },
+  {
+    "week": "2/22/2026",
+    "call_id": "300000003145856",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Strong sales pitch overall, but certain parts of the call felt slightly rushed.2/19",
+    "markdowns": []
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003151450",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "75",
+    "call_flow": "10",
+    "comm": "0",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "Good job maintaining composure throughout the call and identifying the mowing upsell opportunity when the customer mentioned her regular mower had become unreliable. Needs to work on active listening and showing genuine compassion to build rapport with Customer. 2/24",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Rapport",
+            "severity": "Critical"
+          }
+        ],
+        "comment": "Communication: The customer stated clearly and repeatedly \u2014 5 times (0:18, 1:52, 2:30, 2:54, 7:13) \u2014 that she only needed her car shoveled out today. Agent consistently redirected toward bundling with mowing and scheduling a quote visit 3 days out, never once acknowledging that the customer's need was immediate and urgent. This is a significant active listening issue. (0:52\u20137:13). Also, empathy is absent on sensitive disclosure: The customer mentioned her son has a hernia (2:47) and shared a stressful situation involving a court notice for an unshoveled sidewalk (1:16\u20131:33). Agent acknowledged neither with any empathy \u2014 moving past both without any acknowledgment."
+      }
+    ]
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003156061",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Stephen did a great job explaining services and policies clearly. To improve flow, try minimizing repetition on scheduling, pricing, and app instructions while keeping the customer confident. 26/02",
+    "markdowns": []
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003151602",
+    "agent": "Krizthan Pearl Ello",
+    "type": "EC",
+    "result": "Win",
+    "score": "80",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "0",
+    "experience": "Good",
+    "feedback": "The agent matched the customer's energy well and gathered all the hedge trimming details cleanly - quantity, location, height, disposal preference, and price all handled without a hitch. Cross sales was solid too. The gap was in follow-through. The customer mentioned sticks from a pecan tree and wanted them hauled away, but no manual quote was created in Admin to formally log it. That request is now floating with no record behind it. There were also some interruptions toward the end of the call - not severe enough to disrupt the overall experience, but worth tightening up. People skills are there - the admin discipline and call control just need to catch up.",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Service Set Up",
+            "severity": "No"
+          }
+        ],
+        "comment": "Setup: (4:35) The customer requested stick/debris cleanup. Danny acknowledged it and said he'd \"let them know\" - but never actually created a manual quote for it in Admin. The request was left as a verbal note rather than a formal service setup. Per service setup requirements, all accepted services must be added to the account. No MQ = no record for the crew = customer's request not protected. This brings Finalization to zero. 2.24"
+      }
+    ]
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003156262",
+    "agent": "John Coronel",
+    "type": "Initial",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "John provided great customer service, setting expectations and addressing customer's questions and concerns. For future calls, tightening up repeated explanations and grouping related questions together would help create a smoother, more efficient flow without losing clarity or professionalism. 27/02",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
+        ],
+        "comment": "Sales: We did not proactively offer a quote for additional lawn treatment services which was available in her area."
+      }
+    ]
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003156820",
+    "agent": "Mariella Carpio",
+    "type": "Callback",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "15",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "The call demonstrates strong professionalism and thoroughness, even if engagement and rapport could have been slightly more natural. 02/27",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Sales",
+            "severity": "Minor Issue"
+          }
+        ],
+        "comment": "Sales: Coaching: Entice her by highlighting that this is free and easy.\nThat's informing, not selling. 15:52"
+      }
+    ]
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003154679",
+    "agent": "Jer Longno",
+    "type": "EC",
+    "result": "Win",
+    "score": "90",
+    "call_flow": "10",
+    "comm": "15",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Agent handled the call well overall, but needs to stay more focused and attentive to fully capture what the customer is communicating. 2/26",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Rapport",
+            "severity": "No"
+          }
+        ],
+        "comment": "Communication: At 3:09\u20133:19 \u2014 Customer had to restate his point a second time (\"let me get the approval for the leaf removal estimate and then we will call you guys back\") before agent acknowledged it. She had to 2 attempts to grasp what the Customer is saying. And at 5:33,  Customer asked about a time frame for the March 7th visit. Kelly responded by asking \"are you asking if we already have an assigned pro?\" \u2014 she misread the question entirely. Customer had to clarify at 5:42 that he was simply asking what time the pro would arrive, not who the pro was. At 7:32, Customer confirmed he has a connection issue so it could be not Kelly's fault. However, the misrepresentation of what Customer said after asking him to repeat at 3:09 still stands as an attentiveness issue \u2014 the connection problem explains why she missed it the first time, but her follow-up paraphrase was still inaccurate."
+      }
+    ]
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003155339",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Win",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job on handling the one-time service objection naturally and keeping the customer engaged throughout; minor improvement on slowing down as there is a tendency to speak fast. 2/26.",
+    "markdowns": []
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003155276",
+    "agent": "Jared Mirando",
+    "type": "EC",
+    "result": "Loss",
+    "score": "97",
+    "call_flow": "7",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "The agent ran a clean, professional call from start to finish. The tone was warm, the cross sales probe was well-structured, and the unavailability disclosure was delivered without awkwardness or unnecessary apology. The customer left the interaction satisfied and appreciative - which is a good outcome given the circumstances. There were a few moments of dead air during the system checks - not enough to derail the call, but worth being mindful of. Keeping the customer updated with a quick word while navigating the account goes a long way in keeping the energy up. The one mechanical gap was phone verification - the address was confirmed but the phone number was never touched. That's a habit worth locking in on every call regardless of how straightforward the interaction feels. 2.26",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Address Verification",
+            "severity": "No"
+          }
+        ],
+        "comment": "Call Flow: Phone number was never confirmed. For a loss call, phone and address must both be verified. Address was confirmed, phone was not."
+      }
+    ]
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003151588",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "Clean, efficient call. Verification was handled correctly, the intro probe was attempted and the customer's hard no was respected without pushing. The price was communicated clearly and directly, and the timeline was disclosed honestly. When the customer passed, that was the right outcome given the circumstances - the service genuinely wasn't available within the window they needed. Nothing to develop here beyond continued consistency. 2.24",
+    "markdowns": []
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003152091",
+    "agent": "Mhargie Castro",
+    "type": "EC",
+    "result": "Win",
+    "score": "80",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "0",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "Despite the confusion, we remained patient and polite throughout the call. Once the customer clarified the request, we adjusted and continued assisting. Focusing on confirming the service earlier could help prevent a few extra minutes spent on the wrong path and make the experience smoother for the customer. 02/24",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Sales",
+            "severity": "Critical"
+          }
+        ],
+        "comment": "Sales: We set incorrect expectations. The schedule of the service is only for a singular day. Not a two day window. Since this account has an active lawn mowing schedule and an active pro. 2:07 7:53-:7:55"
+      }
+    ]
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003156081",
+    "agent": "Stephen Tolero",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Excellent",
+    "feedback": "This was an extremely short call against a customer who wasn't interested in engaging. The agent stayed composed, re-identified cleanly when challenged, and was still probing when the customer dropped - there's not much more you can ask for when someone shuts down that fast.\nThe one coaching takeaway worth carrying forward is having a ready answer for the \"I don't do business over the phone\" objection. It comes up, and the best response isn't a question - it's a quick, confident explanation of how the service works: no contracts, cancel anytime, the pro shows up at the property before anything gets locked in. That reframe speaks directly to the fear and gives a hesitant customer a reason to stay on the line. With this customer it may not have changed anything, but having that language sharp makes a difference on the next one. 2.26",
+    "markdowns": []
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003149800",
+    "agent": "Jer Longno",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Jer did a great job probing and exploring different options to find a solution for the pricing. For an even smoother customer experience, keeping explanations concise and well-structured can help maintain the flow of the call. Overall, you showed strong effort in assisting the customer and it clearly reflects your commitment on the call. 23/02",
+    "markdowns": []
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003156402",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "July did a great job informing the customer about service policies. Stronger objection handling could've been used and also reminding the customer that we don't charge for services not rendered and use the 3 day quality check as reference. 27/02",
+    "markdowns": []
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003152183",
+    "agent": "July Holgado",
+    "type": "Initial",
+    "result": "Win",
+    "score": "95",
+    "call_flow": "10",
+    "comm": "20",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Good job maintaining your composure and staying professional throughout the call even as the customer was repeatedly impatient, interrupted frequently, and pushed to end the conversation multiple times. Work on making sure to give clear presentation of the schedule especially when Customer is very insistent on a specific date. 2/24",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Presentation",
+            "severity": "No"
+          }
+        ],
+        "comment": "Communication: At 18:12, the customer insisted on having the service scheduled for Friday. While it\u2019s understandable that the customer is in a hurry, the two-day service window should have been emphasized. Although this was mentioned earlier at 7:36, the clarity of how it was presented is where the markdown applies."
+      }
+    ]
+  },
+  {
+    "week": "3/1/2026",
+    "call_id": "300000003153126",
+    "agent": "Lorien Lozada",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "90",
+    "call_flow": "10",
+    "comm": "15",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Lorrien did a great job communicating with the customer and made a clear effort to save the sale. Moving forward, minimizing interruptions and continuing to actively listen to the customer\u2019s requests can help create a smoother interaction and improve the overall call experience. 25/02",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Rapport",
+            "severity": "No"
+          }
+        ],
+        "comment": "Communication: There was a lot of interruptions when the customer tried to explain,(8:25)(15:32) the customer did express his frustration answering a lot of questions.(5:52)(7:55)"
+      }
+    ]
+  }
+];
 
 const EMBEDDED_DATA = [
   {
@@ -186,9 +1825,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "3",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Score (Avg)": "N/A",
-    "QA Audits": "0",
-    "QA Win Rate": "N/A",
+    "QA Score (Avg)": "95.875",
+    "QA Audits": "8",
+    "QA Win Rate": "37.50%",
     "Ready %": "75.51%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:21",
@@ -219,9 +1858,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "3",
     "EC Upsell %": "100.00%",
     "EC Wins": "1",
-    "QA Score (Avg)": "N/A",
-    "QA Audits": "0",
-    "QA Win Rate": "N/A",
+    "QA Score (Avg)": "98.33333333",
+    "QA Audits": "9",
+    "QA Win Rate": "44.44%",
     "Ready %": "75.95%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:11",
@@ -252,9 +1891,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "0",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Score (Avg)": "N/A",
-    "QA Audits": "0",
-    "QA Win Rate": "N/A",
+    "QA Score (Avg)": "88.55555556",
+    "QA Audits": "9",
+    "QA Win Rate": "44.44%",
     "Ready %": "80.80%",
     "Avg ACW": "N/A",
     "Meal Time": "\u2014",
@@ -283,9 +1922,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "0",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Score (Avg)": "N/A",
-    "QA Audits": "0",
-    "QA Win Rate": "N/A",
+    "QA Score (Avg)": "99.28571429",
+    "QA Audits": "7",
+    "QA Win Rate": "28.57%",
     "Ready %": "78.00%",
     "Avg ACW": "N/A",
     "Meal Time": "1:00:05",
@@ -316,9 +1955,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "1",
     "EC Upsell %": "0.00%",
     "EC Wins": "0",
-    "QA Score (Avg)": "N/A",
-    "QA Audits": "0",
-    "QA Win Rate": "N/A",
+    "QA Score (Avg)": "94",
+    "QA Audits": "8",
+    "QA Win Rate": "50.00%",
     "Ready %": "71.90%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:47",
@@ -349,9 +1988,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "0",
     "EC Upsell %": "50.00%",
     "EC Wins": "1",
-    "QA Score (Avg)": "N/A",
-    "QA Audits": "0",
-    "QA Win Rate": "N/A",
+    "QA Score (Avg)": "97.22222222",
+    "QA Audits": "9",
+    "QA Win Rate": "44.44%",
     "Ready %": "77.47%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:52",
@@ -382,9 +2021,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "1",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Score (Avg)": "N/A",
-    "QA Audits": "0",
-    "QA Win Rate": "N/A",
+    "QA Score (Avg)": "98.88888889",
+    "QA Audits": "9",
+    "QA Win Rate": "44.44%",
     "Ready %": "74.65%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:46",
@@ -415,9 +2054,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "3",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Score (Avg)": "N/A",
-    "QA Audits": "0",
-    "QA Win Rate": "N/A",
+    "QA Score (Avg)": "91.33333333",
+    "QA Audits": "9",
+    "QA Win Rate": "55.56%",
     "Ready %": "78.60%",
     "Avg ACW": "N/A",
     "Meal Time": "0:56:11",
@@ -446,9 +2085,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "4",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Score (Avg)": "N/A",
-    "QA Audits": "0",
-    "QA Win Rate": "N/A",
+    "QA Score (Avg)": "85.55555556",
+    "QA Audits": "9",
+    "QA Win Rate": "44.44%",
     "Ready %": "77.13%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:57",
