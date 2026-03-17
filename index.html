@@ -2306,6 +2306,42 @@ const QA_DATA = [
     "experience": "Good",
     "feedback": "Good job on keeping a warm, organized tone through the setup and naturally weaving in policies early. Work on quickly asking or trying to make the customer engaged during objection handling quickly jumping in to re-engage the customer the moment they start to pull away rather than accepting the decline. 3/9",
     "markdowns": []
+  },
+  {
+    "week": "3/15/2026",
+    "call_id": "3809891",
+    "agent": "John Coronel",
+    "type": "EC",
+    "result": "Win",
+    "score": "67",
+    "call_flow": "7",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "10",
+    "setup": "0",
+    "experience": "Needs Improvement",
+    "feedback": "Great job!  You're following the EC verification flow well!  03/14",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Address Verification",
+            "severity": "No"
+          }
+        ],
+        "comment": "Call Flow: Phone, address, and name were all confirmed. However, the zip code was not confirmed."
+      },
+      {
+        "items": [
+          {
+            "label": "Service Set Up",
+            "severity": "No"
+          }
+        ],
+        "comment": "Setup: Per the scoring guide, all ordered services must be added to the correct property/account. The MQ was added to the new account (1590565) \u2014 wrong email, wrong account \u2014 instead of the correct existing account (1347824). And in the old account pressure washing is already added. From EC MQ required fields: what needs to be done was entered but inaccurately (cobblestones vs. siding). When adding an MQ, always give the customer a specific date for when the crew will come out to assess and quote. Saying \"on your next mowing\" is not enough \u2014 the customer needs to know the actual date so they know when to expect the crew for the pressure washing visit."
+      }
+    ]
   }
 ];
 
@@ -2380,8 +2416,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "1",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Audits": "11",
-    "QA Win Rate": "45.45%",
+    "QA Score (Avg)": "87.83333333",
+    "QA Audits": "12",
+    "QA Win Rate": "50.00%",
     "Ready %": "25.94%",
     "Avg ACW": "N/A",
     "Meal Time": "1:00:27",
@@ -2393,6 +2430,11 @@ const EMBEDDED_DATA = [
     "Report Date": "March 16, 2026",
     "Emergency Time": "0:10:54",
     "Over Emergency": "OVER 10m",
+    "QA %": "67.00%",
+    "Audits": "1",
+    "Total Score %": "67.00%",
+    "Overall Rank": "25",
+    "Team Rank": "2",
     "All In Calls": "22",
     "Total Wins": "2",
     "EC Total Calls": "0"
