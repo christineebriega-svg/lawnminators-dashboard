@@ -138,6 +138,20 @@
   .rpt-pink  { background:#fee2e2 !important; color:#dc2626; font-weight:700; text-align:center; }
   .rpt-neutral { text-align:center; color:#1e293b; font-weight:600; }
   .rpt-na { text-align:center; color:#cbd5e1; }
+
+  /* COACHING PANEL */
+  .coach-toggle-btn { width:100%; padding:9px 18px; background:#faf5ff; border:none; border-top:1px solid #e9d5ff; cursor:pointer; font-size:12px; font-weight:700; color:#7c3aed; text-transform:uppercase; letter-spacing:0.6px; display:flex; justify-content:space-between; align-items:center; font-family:inherit; }
+  .coach-toggle-btn:hover { background:#f3e8ff; }
+  .coach-panel { display:none; padding:16px 18px; background:#fdf4ff; border-top:1px solid #e9d5ff; }
+  .coach-panel.open { display:block; }
+  .coach-notes { width:100%; min-height:90px; padding:10px 12px; border:1.5px solid #d8b4fe; border-radius:8px; font-family:inherit; font-size:13px; color:#1e293b; background:white; resize:vertical; line-height:1.5; }
+  .coach-notes:focus { outline:none; border-color:#7c3aed; box-shadow:0 0 0 3px rgba(124,58,237,0.1); }
+  .coach-actions { display:flex; gap:8px; margin-top:10px; align-items:center; flex-wrap:wrap; }
+  .coach-save-btn { padding:7px 16px; background:#7c3aed; color:white; border:none; border-radius:7px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .coach-save-btn:hover { background:#6d28d9; }
+  .coach-email-btn { padding:7px 16px; background:#0f172a; color:#4ade80; border:none; border-radius:7px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .coach-email-btn:hover { background:#1e293b; }
+  .coach-saved-msg { font-size:11px; color:#15803d; font-weight:700; display:none; }
 </style>
 </head>
 <body>
@@ -3710,6 +3724,10 @@ const CYCLE_REPORT_DATA = {
   ]
 };
 
+// Coaching notes — persisted in localStorage
+const COACHING_NOTES = JSON.parse(localStorage.getItem('lawnminators_coaching') || '{}');
+const AGENT_DATA_MAP = {};
+
 function renderSummary(agents) {
   const convPcts   = agents.map(a => pct(a['Conversion All In %']));
   const starterPcts= agents.map(a => pct(a['Conversion Starter %']));
@@ -4022,6 +4040,7 @@ function renderCard(agent) {
   const qlabel = qaLabel(rawQA);
   const audits = agent['Audits'] || agent['QA Audits'] || '0';
   const idx = cardIdx++;
+  AGENT_DATA_MAP[idx] = agent;
   const agentAudits = QA_DATA.filter(a => a.agent === agent['Agent']).length;
   const overallRank = agent['Overall Rank'] || '';
   const teamRank    = agent['Team Rank']    || '';
@@ -4100,6 +4119,19 @@ function renderCard(agent) {
       <div class="qa-panel" id="qa-panel-${idx}">
         ${renderQAPanel(agent['Agent'], idx)}
       </div>
+      <button class="coach-toggle-btn" onclick="toggleCoach(${idx})">
+        <span>📝 Coaching Notes</span>
+        <span id="coach-arrow-${idx}">▼</span>
+      </button>
+      <div class="coach-panel" id="coach-panel-${idx}">
+        <textarea class="coach-notes" id="coach-notes-${idx}"
+          placeholder="Add coaching notes, action items, focus areas for ${esc(agent['Agent'])}...">${esc(COACHING_NOTES[agent['Agent']] || '')}</textarea>
+        <div class="coach-actions">
+          <button class="coach-save-btn" onclick="saveCoachNote('${esc(agent['Agent'])}', ${idx})">Save Note</button>
+          <button class="coach-email-btn" onclick="sendCoachEmail(${idx})">✉ Send Email</button>
+          <span class="coach-saved-msg" id="coach-saved-${idx}">✓ Saved</span>
+        </div>
+      </div>
     </div>`;
 }
 
@@ -4150,6 +4182,57 @@ function toggleQA(idx) {
   const isOpen = panel.classList.contains('open');
   arrow.textContent = isOpen ? '▲' : '▼';
   if (card) card.style.gridColumn = isOpen ? '1 / -1' : '';
+}
+
+function toggleCoach(idx) {
+  const panel = document.getElementById('coach-panel-' + idx);
+  const arrow = document.getElementById('coach-arrow-' + idx);
+  const isOpen = panel.classList.toggle('open');
+  arrow.textContent = isOpen ? '▲' : '▼';
+}
+
+function saveCoachNote(agentName, idx) {
+  const text = document.getElementById('coach-notes-' + idx).value;
+  COACHING_NOTES[agentName] = text;
+  localStorage.setItem('lawnminators_coaching', JSON.stringify(COACHING_NOTES));
+  const msg = document.getElementById('coach-saved-' + idx);
+  msg.style.display = 'inline';
+  setTimeout(() => { msg.style.display = 'none'; }, 2000);
+}
+
+function sendCoachEmail(idx) {
+  const agent = AGENT_DATA_MAP[idx];
+  if (!agent) return;
+  const agentName = agent['Agent'];
+  const firstName = agentName.split(' ')[0];
+  const notes = COACHING_NOTES[agentName] || '(No coaching notes added yet)';
+  const today = new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+
+  const subject = 'Performance Coaching \u2013 ' + agentName + ' \u2013 ' + today;
+  const lines = [
+    'Hi ' + firstName + ',',
+    '',
+    'Here is a summary of your current performance metrics and coaching notes from our session.',
+    '',
+    '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500',
+    'PERFORMANCE METRICS',
+    '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500',
+    'Conversion (All In):  ' + (agent['Conversion All In %'] || 'N/A'),
+    'QA Score:             ' + (agent['QA %'] || agent['QA Score (Avg)'] || 'N/A'),
+    'All In Attach:        ' + (agent['Attach All In %'] || 'N/A'),
+    'EC Cross-Sell:        ' + (agent['EC Cross-Sell %'] || 'N/A'),
+    '',
+    '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500',
+    'COACHING NOTES',
+    '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500',
+    notes,
+    '',
+    'Please reach out if you have any questions or need support.',
+    '',
+    'Christine Ebriega',
+    'Sales Manager | LawnStarter'
+  ];
+  window.location.href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
 }
 
 async function loadData() {
