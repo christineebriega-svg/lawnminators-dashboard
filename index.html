@@ -3910,11 +3910,15 @@ function renderRankings() {
   const d = TEAM_RANKINGS_DATA;
   if (!d || (!d.conv?.length && !d.attach?.length && !d.qa?.length)) return '';
   const MY_TL = 'Christine Ebriega';
+  const SHOW_TLS = new Set(['Amber Knoten','Christian Umali','Christine Ebriega','Faye Andrade','Katherine Militar','Kyla Sangalang','Marc Solis','Mona Lapuz']);
   function rankColor(r) {
     if (r === '1') return 'gold'; if (r === '2') return 'silver'; if (r === '3') return 'bronze'; return '';
   }
   function rankList(arr) {
-    return (arr || []).map(item => `
+    const filtered = (arr || []).filter(item => SHOW_TLS.has(item.tl));
+    // Re-rank after filter
+    filtered.forEach((item, i) => item.rank = String(i + 1));
+    return filtered.map((item) => `
       <div class="ranking-row">
         <div class="rank-num ${rankColor(item.rank)}">#${item.rank}</div>
         <div class="rank-tl ${item.tl === MY_TL ? 'mine' : ''}">${esc(item.tl)}</div>
