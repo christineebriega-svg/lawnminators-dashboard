@@ -2734,6 +2734,8 @@ const EMBEDDED_DATA = [
     "Team Rank": "7",
     "All In Calls": "45",
     "Total Wins": "9",
+    "LT #": "0",
+    "LT %": "0.00%",
     "ACW Cycle (m)": "0.21",
     "Ready % Cycle": "77.97%",
     "ACW Cycle Range": "3/16/2026\u20133/20/2026",
@@ -2769,6 +2771,8 @@ const EMBEDDED_DATA = [
     "Team Rank": "1",
     "All In Calls": "50",
     "Total Wins": "14",
+    "LT #": "2",
+    "LT %": "15.38%",
     "ACW Cycle (m)": "0.27",
     "Ready % Cycle": "77.11%",
     "ACW Cycle Range": "3/16/2026\u20133/20/2026",
@@ -2803,6 +2807,8 @@ const EMBEDDED_DATA = [
     "Team Rank": "9",
     "All In Calls": "25",
     "Total Wins": "2",
+    "LT #": "0",
+    "LT %": "0.00%",
     "ACW Cycle (m)": "0.57",
     "Ready % Cycle": "72.77%",
     "ACW Cycle Range": "3/15/2026\u20133/17/2026",
@@ -2837,6 +2843,8 @@ const EMBEDDED_DATA = [
     "Team Rank": "6",
     "All In Calls": "60",
     "Total Wins": "11",
+    "LT #": "3",
+    "LT %": "33.33%",
     "ACW Cycle (m)": "0.28",
     "Ready % Cycle": "77.14%",
     "ACW Cycle Range": "3/17/2026\u20133/20/2026",
@@ -2872,6 +2880,8 @@ const EMBEDDED_DATA = [
     "Team Rank": "1",
     "All In Calls": "33",
     "Total Wins": "13",
+    "LT #": "2",
+    "LT %": "25.00%",
     "ACW Cycle (m)": "1.4",
     "Ready % Cycle": "60.99%",
     "ACW Cycle Range": "3/16/2026\u20133/20/2026",
@@ -2907,6 +2917,8 @@ const EMBEDDED_DATA = [
     "Team Rank": "1",
     "All In Calls": "55",
     "Total Wins": "12",
+    "LT #": "1",
+    "LT %": "12.50%",
     "ACW Cycle (m)": "0.23",
     "Ready % Cycle": "78.51%",
     "ACW Cycle Range": "3/16/2026\u20133/20/2026",
@@ -2942,6 +2954,8 @@ const EMBEDDED_DATA = [
     "Team Rank": "5",
     "All In Calls": "36",
     "Total Wins": "8",
+    "LT #": "0",
+    "LT %": "0.00%",
     "ACW Cycle (m)": "0.22",
     "Ready % Cycle": "74.91%",
     "ACW Cycle Range": "3/17/2026\u20133/20/2026",
@@ -2976,6 +2990,8 @@ const EMBEDDED_DATA = [
     "Team Rank": "1",
     "All In Calls": "40",
     "Total Wins": "4",
+    "LT #": "1",
+    "LT %": "33.33%",
     "ACW Cycle (m)": "0.28",
     "Ready % Cycle": "78.52%",
     "ACW Cycle Range": "3/16/2026\u20133/20/2026",
@@ -3011,6 +3027,8 @@ const EMBEDDED_DATA = [
     "Team Rank": "7",
     "All In Calls": "46",
     "Total Wins": "12",
+    "LT #": "3",
+    "LT %": "30.00%",
     "ACW Cycle (m)": "0.48",
     "Ready % Cycle": "73.75%",
     "ACW Cycle Range": "3/16/2026\u20133/20/2026",
@@ -4308,6 +4326,8 @@ function renderCard(agent) {
           <h3>Attach</h3>
           <div class="metric-row"><span class="metric-label">All In %</span>${fmtPct(agent['Attach All In %'])}</div>
           <div class="metric-row"><span class="metric-label">All In #</span>${fmtNum(agent['Attach All In #'])}</div>
+          <div class="metric-row"><span class="metric-label">LT %</span>${agent['LT %'] ? `<span class="metric-val">${esc(agent['LT %'])}</span>` : '<span class="metric-val na">—</span>'}</div>
+          <div class="metric-row"><span class="metric-label">LT #</span>${agent['LT #'] ? `<span class="metric-val">${esc(agent['LT #'])}</span>` : '<span class="metric-val na">—</span>'}</div>
         </div>
         <div class="metric-group">
           <h3>EC Cross-Sell</h3>
