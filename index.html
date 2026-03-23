@@ -113,6 +113,31 @@
   .score-red { color: #dc2626; }
   .feedback-text { color: #475569; line-height: 1.5; font-size: 12px; }
   .no-audits { padding: 14px 18px; color: #94a3b8; font-size: 13px; font-style: italic; }
+
+  /* TEAM REPORT */
+  .report-toggle-btn { width:100%; padding:10px 36px; background:#0f172a; border:none; cursor:pointer; font-size:13px; font-weight:700; color:#4ade80; text-transform:uppercase; letter-spacing:0.8px; display:flex; justify-content:space-between; align-items:center; font-family:inherit; }
+  .report-toggle-btn:hover { background:#1e293b; }
+  .report-panel { display:none; padding:28px 36px; background:#f0f4f8; border-bottom:2px solid #e2e8f0; }
+  .report-panel.open { display:block; }
+  .report-section { margin-bottom:28px; border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+  .report-section-header { background:#0f172a; color:white; padding:14px 18px; }
+  .report-section-header h3 { font-size:15px; font-weight:800; margin:0; }
+  .report-section-header p { font-size:11px; color:#4ade80; margin:3px 0 0; }
+  .report-table-wrap { overflow-x:auto; background:white; }
+  .report-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .report-table th { background:#1e3a5f; color:white; padding:8px 12px; text-align:center; white-space:nowrap; font-size:12px; }
+  .report-table th.agent-col { text-align:left; background:#1e293b; }
+  .report-table th.sub { background:#2d4a70; font-weight:500; font-size:11px; }
+  .report-table th.sub.rank-sub { color:#94a3b8; }
+  .report-table td { padding:8px 12px; border-bottom:1px solid #f1f5f9; white-space:nowrap; }
+  .report-table tr:last-child td { border-bottom:none; }
+  .report-table tr:hover td { background:#f8fafc; }
+  .report-table td.agent-name-cell { font-weight:600; text-align:left; background:white !important; }
+  .report-table td.rank-cell { text-align:center; color:#64748b; font-style:italic; font-size:12px; }
+  .rpt-green { background:#dcfce7 !important; color:#15803d; font-weight:700; text-align:center; }
+  .rpt-pink  { background:#fee2e2 !important; color:#dc2626; font-weight:700; text-align:center; }
+  .rpt-neutral { text-align:center; color:#1e293b; font-weight:600; }
+  .rpt-na { text-align:center; color:#cbd5e1; }
 </style>
 </head>
 <body>
@@ -2930,6 +2955,761 @@ const EMBEDDED_DATA = [
   }
 ];
 
+const CYCLE_REPORT_DATA = {
+  "cycle_labels": [
+    "3/1\u20133/14",
+    "2/15\u20132/28",
+    "2/1\u20132/14"
+  ],
+  "qa": [
+    {
+      "agent": "Jared Mirando",
+      "cycles": [
+        {
+          "pct": "86.75%",
+          "rank": "42"
+        },
+        {
+          "pct": "100.00%",
+          "rank": "1"
+        },
+        {
+          "pct": "92.50%",
+          "rank": "39"
+        }
+      ]
+    },
+    {
+      "agent": "Jer Longno",
+      "cycles": [
+        {
+          "pct": "97.50%",
+          "rank": "11"
+        },
+        {
+          "pct": "98.75%",
+          "rank": "8"
+        },
+        {
+          "pct": "100.00%",
+          "rank": "1"
+        }
+      ]
+    },
+    {
+      "agent": "John Coronel",
+      "cycles": [
+        {
+          "pct": "90.00%",
+          "rank": "31"
+        },
+        {
+          "pct": "95.00%",
+          "rank": "27"
+        },
+        {
+          "pct": "86.33%",
+          "rank": "48"
+        }
+      ]
+    },
+    {
+      "agent": "July Holgado",
+      "cycles": [
+        {
+          "pct": "90.00%",
+          "rank": "31"
+        },
+        {
+          "pct": "100.00%",
+          "rank": "1"
+        },
+        {
+          "pct": "100.00%",
+          "rank": "1"
+        }
+      ]
+    },
+    {
+      "agent": "Justin Maguire",
+      "cycles": [
+        {
+          "pct": "",
+          "rank": ""
+        },
+        {
+          "pct": "",
+          "rank": ""
+        },
+        {
+          "pct": "",
+          "rank": ""
+        }
+      ]
+    },
+    {
+      "agent": "Krizthan Pearl Ello",
+      "cycles": [
+        {
+          "pct": "95.00%",
+          "rank": "19"
+        },
+        {
+          "pct": "99.00%",
+          "rank": "6"
+        },
+        {
+          "pct": "93.75%",
+          "rank": "36"
+        }
+      ]
+    },
+    {
+      "agent": "Lorien Lozada",
+      "cycles": [
+        {
+          "pct": "97.50%",
+          "rank": "11"
+        },
+        {
+          "pct": "96.67%",
+          "rank": "22"
+        },
+        {
+          "pct": "99.25%",
+          "rank": "8"
+        }
+      ]
+    },
+    {
+      "agent": "Mariella Carpio",
+      "cycles": [
+        {
+          "pct": "93.75%",
+          "rank": "24"
+        },
+        {
+          "pct": "100.00%",
+          "rank": "1"
+        },
+        {
+          "pct": "98.75%",
+          "rank": "18"
+        }
+      ]
+    },
+    {
+      "agent": "Mhargie Castro",
+      "cycles": [
+        {
+          "pct": "88.75%",
+          "rank": "38"
+        },
+        {
+          "pct": "86.75%",
+          "rank": "47"
+        },
+        {
+          "pct": "99.25%",
+          "rank": "8"
+        }
+      ]
+    },
+    {
+      "agent": "Stephen Tolero",
+      "cycles": [
+        {
+          "pct": "95.00%",
+          "rank": "19"
+        },
+        {
+          "pct": "75.00%",
+          "rank": "54"
+        },
+        {
+          "pct": "96.67%",
+          "rank": "28"
+        }
+      ]
+    }
+  ],
+  "conv": [
+    {
+      "agent": "Jared Mirando",
+      "cycles": [
+        {
+          "pct": "16.42%",
+          "rank": "54"
+        },
+        {
+          "pct": "2.94%",
+          "rank": "68"
+        },
+        {
+          "pct": "6.25%",
+          "rank": "35"
+        }
+      ]
+    },
+    {
+      "agent": "Jer Longno",
+      "cycles": [
+        {
+          "pct": "23.73%",
+          "rank": "14"
+        },
+        {
+          "pct": "7.84%",
+          "rank": "46"
+        },
+        {
+          "pct": "11.11%",
+          "rank": "14"
+        }
+      ]
+    },
+    {
+      "agent": "John Coronel",
+      "cycles": [
+        {
+          "pct": "11.58%",
+          "rank": "82"
+        },
+        {
+          "pct": "16.67%",
+          "rank": "11"
+        },
+        {
+          "pct": "7.50%",
+          "rank": "30"
+        }
+      ]
+    },
+    {
+      "agent": "July Holgado",
+      "cycles": [
+        {
+          "pct": "25.93%",
+          "rank": "8"
+        },
+        {
+          "pct": "13.33%",
+          "rank": "22"
+        },
+        {
+          "pct": "0.00%",
+          "rank": "57"
+        }
+      ]
+    },
+    {
+      "agent": "Justin Maguire",
+      "cycles": [
+        {
+          "pct": "",
+          "rank": ""
+        },
+        {
+          "pct": "",
+          "rank": ""
+        },
+        {
+          "pct": "",
+          "rank": ""
+        }
+      ]
+    },
+    {
+      "agent": "Krizthan Pearl Ello",
+      "cycles": [
+        {
+          "pct": "19.23%",
+          "rank": "33"
+        },
+        {
+          "pct": "10.17%",
+          "rank": "36"
+        },
+        {
+          "pct": "3.33%",
+          "rank": "51"
+        }
+      ]
+    },
+    {
+      "agent": "Lorien Lozada",
+      "cycles": [
+        {
+          "pct": "11.27%",
+          "rank": "85"
+        },
+        {
+          "pct": "5.06%",
+          "rank": "60"
+        },
+        {
+          "pct": "2.56%",
+          "rank": "55"
+        }
+      ]
+    },
+    {
+      "agent": "Mariella Carpio",
+      "cycles": [
+        {
+          "pct": "17.86%",
+          "rank": "48"
+        },
+        {
+          "pct": "5.26%",
+          "rank": "58"
+        },
+        {
+          "pct": "7.02%",
+          "rank": "32"
+        }
+      ]
+    },
+    {
+      "agent": "Mhargie Castro",
+      "cycles": [
+        {
+          "pct": "21.88%",
+          "rank": "24"
+        },
+        {
+          "pct": "6.67%",
+          "rank": "52"
+        },
+        {
+          "pct": "5.56%",
+          "rank": "38"
+        }
+      ]
+    },
+    {
+      "agent": "Stephen Tolero",
+      "cycles": [
+        {
+          "pct": "18.84%",
+          "rank": "36"
+        },
+        {
+          "pct": "7.69%",
+          "rank": "49"
+        },
+        {
+          "pct": "8.06%",
+          "rank": "27"
+        }
+      ]
+    }
+  ],
+  "attach": [
+    {
+      "agent": "Jared Mirando",
+      "cycles": [
+        {
+          "pct": "44.44%",
+          "rank": "40"
+        },
+        {
+          "pct": "50.00%",
+          "rank": "26"
+        },
+        {
+          "pct": "33.33%",
+          "rank": "17"
+        }
+      ]
+    },
+    {
+      "agent": "Jer Longno",
+      "cycles": [
+        {
+          "pct": "54.55%",
+          "rank": "21"
+        },
+        {
+          "pct": "150.00%",
+          "rank": "3"
+        },
+        {
+          "pct": "50.00%",
+          "rank": "9"
+        }
+      ]
+    },
+    {
+      "agent": "John Coronel",
+      "cycles": [
+        {
+          "pct": "40.00%",
+          "rank": "43"
+        },
+        {
+          "pct": "66.67%",
+          "rank": "19"
+        },
+        {
+          "pct": "0.00%",
+          "rank": "30"
+        }
+      ]
+    },
+    {
+      "agent": "July Holgado",
+      "cycles": [
+        {
+          "pct": "46.15%",
+          "rank": "38"
+        },
+        {
+          "pct": "0.00%",
+          "rank": "50"
+        },
+        {
+          "pct": "\u2014",
+          "rank": "30"
+        }
+      ]
+    },
+    {
+      "agent": "Justin Maguire",
+      "cycles": [
+        {
+          "pct": "\u2014",
+          "rank": ""
+        },
+        {
+          "pct": "\u2014",
+          "rank": ""
+        },
+        {
+          "pct": "\u2014",
+          "rank": ""
+        }
+      ]
+    },
+    {
+      "agent": "Krizthan Pearl Ello",
+      "cycles": [
+        {
+          "pct": "11.11%",
+          "rank": "83"
+        },
+        {
+          "pct": "80.00%",
+          "rank": "16"
+        },
+        {
+          "pct": "0.00%",
+          "rank": "30"
+        }
+      ]
+    },
+    {
+      "agent": "Lorien Lozada",
+      "cycles": [
+        {
+          "pct": "50.00%",
+          "rank": "25"
+        },
+        {
+          "pct": "0.00%",
+          "rank": "50"
+        },
+        {
+          "pct": "50.00%",
+          "rank": "9"
+        }
+      ]
+    },
+    {
+      "agent": "Mariella Carpio",
+      "cycles": [
+        {
+          "pct": "66.67%",
+          "rank": "9"
+        },
+        {
+          "pct": "50.00%",
+          "rank": "26"
+        },
+        {
+          "pct": "0.00%",
+          "rank": "30"
+        }
+      ]
+    },
+    {
+      "agent": "Mhargie Castro",
+      "cycles": [
+        {
+          "pct": "33.33%",
+          "rank": "55"
+        },
+        {
+          "pct": "100.00%",
+          "rank": "5"
+        },
+        {
+          "pct": "0.00%",
+          "rank": "30"
+        }
+      ]
+    },
+    {
+      "agent": "Stephen Tolero",
+      "cycles": [
+        {
+          "pct": "50.00%",
+          "rank": "25"
+        },
+        {
+          "pct": "66.67%",
+          "rank": "19"
+        },
+        {
+          "pct": "20.00%",
+          "rank": "25"
+        }
+      ]
+    }
+  ],
+  "upsells": [
+    {
+      "agent": "Jared Mirando",
+      "cycles": [
+        {
+          "bush": "11.11%",
+          "leaf": "0.00%",
+          "lawn": "22.22%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "0.00%",
+          "lawn": "50.00%"
+        },
+        {
+          "bush": "33.33%",
+          "leaf": "0.00%",
+          "lawn": "0.00%"
+        }
+      ]
+    },
+    {
+      "agent": "Jer Longno",
+      "cycles": [
+        {
+          "bush": "27.27%",
+          "leaf": "9.09%",
+          "lawn": "18.18%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "50.00%",
+          "lawn": "50.00%"
+        },
+        {
+          "bush": "25.00%",
+          "leaf": "25.00%",
+          "lawn": "0.00%"
+        }
+      ]
+    },
+    {
+      "agent": "John Coronel",
+      "cycles": [
+        {
+          "bush": "0.00%",
+          "leaf": "40.00%",
+          "lawn": "0.00%"
+        },
+        {
+          "bush": "33.33%",
+          "leaf": "33.33%",
+          "lawn": "0.00%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "0.00%",
+          "lawn": "0.00%"
+        }
+      ]
+    },
+    {
+      "agent": "July Holgado",
+      "cycles": [
+        {
+          "bush": "15.38%",
+          "leaf": "0.00%",
+          "lawn": "23.08%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "0.00%",
+          "lawn": "0.00%"
+        },
+        {
+          "bush": "\u2014",
+          "leaf": "\u2014",
+          "lawn": "\u2014"
+        }
+      ]
+    },
+    {
+      "agent": "Justin Maguire",
+      "cycles": [
+        {
+          "bush": "\u2014",
+          "leaf": "\u2014",
+          "lawn": "\u2014"
+        },
+        {
+          "bush": "\u2014",
+          "leaf": "\u2014",
+          "lawn": "\u2014"
+        },
+        {
+          "bush": "\u2014",
+          "leaf": "\u2014",
+          "lawn": "\u2014"
+        }
+      ]
+    },
+    {
+      "agent": "Krizthan Pearl Ello",
+      "cycles": [
+        {
+          "bush": "11.11%",
+          "leaf": "0.00%",
+          "lawn": "0.00%"
+        },
+        {
+          "bush": "20.00%",
+          "leaf": "20.00%",
+          "lawn": "40.00%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "0.00%",
+          "lawn": "0.00%"
+        }
+      ]
+    },
+    {
+      "agent": "Lorien Lozada",
+      "cycles": [
+        {
+          "bush": "0.00%",
+          "leaf": "12.50%",
+          "lawn": "25.00%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "0.00%",
+          "lawn": "0.00%"
+        },
+        {
+          "bush": "50.00%",
+          "leaf": "0.00%",
+          "lawn": "0.00%"
+        }
+      ]
+    },
+    {
+      "agent": "Mariella Carpio",
+      "cycles": [
+        {
+          "bush": "22.22%",
+          "leaf": "22.22%",
+          "lawn": "11.11%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "50.00%",
+          "lawn": "0.00%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "0.00%",
+          "lawn": "0.00%"
+        }
+      ]
+    },
+    {
+      "agent": "Mhargie Castro",
+      "cycles": [
+        {
+          "bush": "11.11%",
+          "leaf": "11.11%",
+          "lawn": "11.11%"
+        },
+        {
+          "bush": "40.00%",
+          "leaf": "40.00%",
+          "lawn": "20.00%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "0.00%",
+          "lawn": "0.00%"
+        }
+      ]
+    },
+    {
+      "agent": "Stephen Tolero",
+      "cycles": [
+        {
+          "bush": "0.00%",
+          "leaf": "16.67%",
+          "lawn": "25.00%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "33.33%",
+          "lawn": "33.33%"
+        },
+        {
+          "bush": "0.00%",
+          "leaf": "20.00%",
+          "lawn": "0.00%"
+        }
+      ]
+    }
+  ],
+  "team_summary": [
+    {
+      "label": "3/1\u20133/14",
+      "conv_pct": "18.53%",
+      "qa_pct": "92.69%",
+      "attach_pct": "44.44%",
+      "bush_pct": "11.11%",
+      "leaf_pct": "12.22%",
+      "lawn_pct": "15.56%"
+    },
+    {
+      "label": "2/15\u20132/28",
+      "conv_pct": "8.40%",
+      "qa_pct": "94.57%",
+      "attach_pct": "58.06%",
+      "bush_pct": "12.90%",
+      "leaf_pct": "22.58%",
+      "lawn_pct": "19.35%"
+    },
+    {
+      "label": "2/1\u20132/14",
+      "conv_pct": "5.71%",
+      "qa_pct": "96.28%",
+      "attach_pct": "23.81%",
+      "bush_pct": "14.29%",
+      "leaf_pct": "9.52%",
+      "lawn_pct": "0.00%"
+    }
+  ]
+};
+
 function renderSummary(agents) {
   const convPcts   = agents.map(a => pct(a['Conversion All In %']));
   const starterPcts= agents.map(a => pct(a['Conversion Starter %']));
@@ -3025,6 +3805,142 @@ function renderSummary(agents) {
     </div>
   </div>
   <div class="section-title">Agents (${agents.length})</div>`;
+}
+
+function toggleTeamReport() {
+  const panel = document.getElementById('team-report-panel');
+  const arrow = document.getElementById('report-arrow');
+  panel.classList.toggle('open');
+  const isOpen = panel.classList.contains('open');
+  if (arrow) arrow.textContent = isOpen ? '▲' : '▼';
+}
+
+function renderTeamReport() {
+  const d = CYCLE_REPORT_DATA;
+  if (!d || !d.cycle_labels || !d.cycle_labels.length) return '<p style="color:#94a3b8;padding:16px;">No historical data available.</p>';
+  const labels = d.cycle_labels;
+
+  // Goals: green = at/above goal, red = below goal
+  const GOALS = { conv: 16, attach: 37, qa: 86, lawn: 11, bush: 0.01, leaf: 0.01 };
+
+  function pctCell(pct, goal) {
+    if (!pct || pct === '—' || pct === '') return '<td class="rpt-na">—</td>';
+    const n = parseFloat(pct);
+    if (isNaN(n)) return `<td class="rpt-na">${esc(pct)}</td>`;
+    const cls = n >= goal ? 'rpt-green' : 'rpt-pink';
+    return `<td class="${cls}">${pct}</td>`;
+  }
+  function rankCell(r) {
+    return r ? `<td class="rank-cell">${esc(r)}</td>` : '<td class="rpt-na">—</td>';
+  }
+  function uCell(pct, goal) {
+    if (!pct || pct === '—' || pct === '') return '<td class="rpt-na">—</td>';
+    const n = parseFloat(pct);
+    if (isNaN(n)) return `<td class="rpt-na">${esc(pct)}</td>`;
+    const cls = n >= goal ? 'rpt-green' : 'rpt-pink';
+    return `<td class="${cls}">${pct}</td>`;
+  }
+
+  // Cycle column headers (each spans 2: % + Rank)
+  function cycleHeaders2() {
+    return labels.map(l => `<th colspan="2">${esc(l)}</th>`).join('');
+  }
+  function subHeaders2() {
+    return labels.map(() => '<th class="sub">%</th><th class="sub rank-sub">Rank</th>').join('');
+  }
+  // Cycle column headers spanning 3 (upsells: bush/leaf/lawn)
+  function cycleHeaders3() {
+    return labels.map(l => `<th colspan="3">${esc(l)}</th>`).join('');
+  }
+  function subHeaders3() {
+    return labels.map(() => '<th class="sub">Bush %</th><th class="sub">Leaf %</th><th class="sub">Lawn %</th>').join('');
+  }
+
+  function buildTable(title, subtitle, rows, headersFn, subFn, rowFn) {
+    const rowsHtml = rows.map(r =>
+      `<tr><td class="agent-name-cell">${esc(r.agent)}</td>${rowFn(r)}</tr>`
+    ).join('');
+    return `
+      <div class="report-section">
+        <div class="report-section-header"><h3>${title}</h3><p>${subtitle}</p></div>
+        <div class="report-table-wrap">
+          <table class="report-table">
+            <thead>
+              <tr><th class="agent-col" rowspan="2">Agent</th>${headersFn()}</tr>
+              <tr>${subFn()}</tr>
+            </thead>
+            <tbody>${rowsHtml}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }
+
+  // 1. Team Performance Summary
+  const summaryMetrics = [
+    {label:'Conversion',    key:'conv_pct',   goal:GOALS.conv},
+    {label:'QA',            key:'qa_pct',     goal:GOALS.qa},
+    {label:'All in Attach', key:'attach_pct', goal:GOALS.attach},
+    {label:'Bush Trim',     key:'bush_pct',   goal:GOALS.bush},
+    {label:'Lawn Treatment',key:'lawn_pct',   goal:GOALS.lawn},
+    {label:'Leaf Removal',  key:'leaf_pct',   goal:GOALS.leaf},
+  ];
+  const teamRows = summaryMetrics.map(m => {
+    const cells = (d.team_summary || []).map(c => pctCell(c[m.key], m.goal)).join('');
+    return `<tr><td class="agent-name-cell" style="font-weight:600;">${m.label}</td>${cells}</tr>`;
+  }).join('');
+  const teamHtml = d.team_summary && d.team_summary.length ? `
+    <div class="report-section">
+      <div class="report-section-header"><h3>Team Performance Summary</h3><p>Team aggregate across last 3 cycles</p></div>
+      <div class="report-table-wrap">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th class="agent-col">Metric</th>
+              ${(d.team_summary||[]).map(c=>`<th>${esc(c.label)}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>${teamRows}</tbody>
+        </table>
+      </div>
+    </div>` : '';
+
+  // 2. Individual QA
+  const qaHtml = buildTable(
+    'Individual Scores — QA',
+    'Green ≥ 86% · Red < 86%',
+    d.qa || [],
+    cycleHeaders2, subHeaders2,
+    r => r.cycles.map(c => pctCell(c.pct, GOALS.qa) + rankCell(c.rank)).join('')
+  );
+
+  // 3. Individual Conversion
+  const convHtml = buildTable(
+    'Individual Scores — Conversion',
+    'Green ≥ 16% · Red < 16% · Rank = All-In overall rank',
+    d.conv || [],
+    cycleHeaders2, subHeaders2,
+    r => r.cycles.map(c => pctCell(c.pct, GOALS.conv) + rankCell(c.rank)).join('')
+  );
+
+  // 4. Individual All-In Attach
+  const attachHtml = buildTable(
+    'Individual Scores — All-In Attach',
+    'Green ≥ 37% · Red < 37%',
+    d.attach || [],
+    cycleHeaders2, subHeaders2,
+    r => r.cycles.map(c => pctCell(c.pct, GOALS.attach) + rankCell(c.rank)).join('')
+  );
+
+  // 5. Non-Mowing Upsells
+  const upsellHtml = buildTable(
+    'Individual Scores — Non-Mowing Upsells',
+    'LT goal ≥ 11% · Green = at/above goal · Red = below',
+    d.upsells || [],
+    cycleHeaders3, subHeaders3,
+    r => r.cycles.map(c => uCell(c.bush, GOALS.bush) + uCell(c.leaf, GOALS.leaf) + uCell(c.lawn, GOALS.lawn)).join('')
+  );
+
+  return teamHtml + qaHtml + convHtml + attachHtml + upsellHtml;
 }
 
 function scoreCls(s) {
@@ -3242,7 +4158,13 @@ async function loadData() {
     const agents = EMBEDDED_DATA;
     if (!agents.length) { content.innerHTML = '<div class="error-msg">No data. Run update_dashboard.py to load latest data.</div>'; return; }
     cardIdx = 0;
-    content.innerHTML = buildFilterBar(agents) + renderSummary(agents) + '<div class="grid">' + agents.map(renderCard).join('') + '</div>';
+    const reportSection = `
+      <button class="report-toggle-btn" onclick="toggleTeamReport()">
+        <span>📊 Team Report — Last 3 Cycles (Christine Ebriega)</span>
+        <span id="report-arrow">▼</span>
+      </button>
+      <div class="report-panel" id="team-report-panel">${renderTeamReport()}</div>`;
+    content.innerHTML = buildFilterBar(agents) + reportSection + renderSummary(agents) + '<div class="grid">' + agents.map(renderCard).join('') + '</div>';
     document.getElementById('lastUpdated').textContent = 'Last refreshed: ' + new Date().toLocaleString();
   } catch (e) {
     content.innerHTML = '<div class="error-msg">Error: ' + e.message + '</div>';
