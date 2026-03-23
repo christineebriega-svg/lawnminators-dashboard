@@ -4244,7 +4244,11 @@ function sendCoachEmail(idx) {
   // Save email so it persists for next time
   COACHING_NOTES['__email__' + agentName] = toEmail;
   localStorage.setItem('lawnminators_coaching', JSON.stringify(COACHING_NOTES));
-  window.location.href = 'mailto:' + encodeURIComponent(toEmail) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+  const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1'
+    + '&to=' + encodeURIComponent(toEmail)
+    + '&su=' + encodeURIComponent(subject)
+    + '&body=' + encodeURIComponent(lines.join('\n'));
+  window.open(gmailUrl, '_blank');
 }
 
 async function loadData() {
