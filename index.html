@@ -3501,6 +3501,69 @@ const QA_DATA = [
     "experience": "Good",
     "feedback": "You were patient, clear, and professional throughout. Handled the cash payment revelation smoothly and offered a practical alternative. 03/31",
     "markdowns": []
+  },
+  {
+    "week": "4/5/2026",
+    "call_id": "300000003227462",
+    "agent": "Stephen Tolero",
+    "type": "Callback",
+    "result": "Loss",
+    "score": "70",
+    "call_flow": "10",
+    "comm": "15",
+    "policy": "25",
+    "objections": "0",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Needs Improvement",
+    "feedback": "The greeting was warm. 03/31",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Rapport",
+            "severity": "No"
+          }
+        ],
+        "comment": "Communication: \nCustomer said \"I just finished saying\" at 0:48  a clear signal of frustration that we didn't acknowledge or address with empathy. too passive means the customer dictates the pace and direction"
+      },
+      {
+        "items": [
+          {
+            "label": "Objections Rebuttal",
+            "severity": "No"
+          }
+        ],
+        "comment": "Objections: could have probed at any point: \"Would you be able to get Bob on the line now so we can get this taken care of right away?\" That's a simple, low-pressure way to move the sale forward instead of just letting the call end with no booking."
+      }
+    ]
+  },
+  {
+    "week": "4/5/2026",
+    "call_id": "300000003234830",
+    "agent": "Jared Mirando",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "90",
+    "call_flow": "10",
+    "comm": "15",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "At 7:07\u20138:01 You made a solid attempt to keep the customer on the line \u2014 set expectations about callback risks (different rep, different scheduling window) and offered to wait on the line. Good urgency framing. 04/01",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Rapport",
+            "severity": "No"
+          }
+        ],
+        "comment": "Communication: \nThe front yard/across the street confusion at 2:14\u20134:01 went on far too long. Customer had to explain the same thing four times before we understood. That's a sustained misunderstanding that frustrated the customer. \"I'm asking you to come and take it, remove them.\" That means haul and dispose. Our follow-up question about bagging vs. hauling at 4:53 was unnecessary and caused confusion since the customer had already made it clear they wanted everything removed."
+      }
+    ]
   }
 ];
 
@@ -3515,9 +3578,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "14",
     "EC Upsell %": "100.00%",
     "EC Wins": "1",
-    "QA Score (Avg)": "91.0625",
-    "QA Audits": "16",
-    "QA Win Rate": "50.00%",
+    "QA Score (Avg)": "91",
+    "QA Audits": "17",
+    "QA Win Rate": "47.06%",
     "Ready %": "76.59%",
     "Avg ACW": "N/A",
     "Meal Time": "\u2014",
@@ -3527,11 +3590,11 @@ const EMBEDDED_DATA = [
     "Login Time": "\u2014",
     "Logout Time": "\u2014",
     "Report Date": "March 22, 2026",
-    "QA %": "100.00%",
-    "Audits": "1",
-    "Total Score %": "100.00%",
-    "Overall Rank": "1",
-    "Team Rank": "1",
+    "QA %": "95.00%",
+    "Audits": "2",
+    "Total Score %": "190.00%",
+    "Overall Rank": "25",
+    "Team Rank": "6",
     "All In Calls": "82",
     "Total Wins": "13",
     "LT #": "0",
@@ -3665,8 +3728,8 @@ const EMBEDDED_DATA = [
     "QA %": "97.50%",
     "Audits": "2",
     "Total Score %": "195.00%",
-    "Overall Rank": "16",
-    "Team Rank": "7",
+    "Overall Rank": "14",
+    "Team Rank": "5",
     "All In Calls": "41",
     "Total Wins": "8",
     "LT #": "1",
@@ -3726,9 +3789,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "19",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Score (Avg)": "98.05882353",
-    "QA Audits": "17",
-    "QA Win Rate": "41.18%",
+    "QA Score (Avg)": "98.16666667",
+    "QA Audits": "18",
+    "QA Win Rate": "38.89%",
     "Ready %": "75.90%",
     "Avg ACW": "N/A",
     "Meal Time": "\u2014",
@@ -3798,9 +3861,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "6",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Score (Avg)": "90",
-    "QA Audits": "18",
-    "QA Win Rate": "50.00%",
+    "QA Score (Avg)": "88.94736842",
+    "QA Audits": "19",
+    "QA Win Rate": "47.37%",
     "Ready %": "71.88%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:26",
@@ -3810,11 +3873,11 @@ const EMBEDDED_DATA = [
     "Login Time": "\u2014",
     "Logout Time": "\u2014",
     "Report Date": "March 22, 2026",
-    "QA %": "98.33%",
-    "Audits": "3",
-    "Total Score %": "295.00%",
-    "Overall Rank": "14",
-    "Team Rank": "6",
+    "QA %": "91.25%",
+    "Audits": "4",
+    "Total Score %": "365.00%",
+    "Overall Rank": "38",
+    "Team Rank": "7",
     "All In Calls": "26",
     "Total Wins": "6",
     "LT #": "1",
@@ -4201,7 +4264,7 @@ const CYCLE_REPORT_DATA = {
         },
         {
           "pct": "15.09%",
-          "rank": "57"
+          "rank": "58"
         },
         {
           "pct": "",
@@ -4239,7 +4302,7 @@ const CYCLE_REPORT_DATA = {
         },
         {
           "pct": "2.94%",
-          "rank": "63"
+          "rank": "64"
         }
       ]
     },
@@ -4256,7 +4319,7 @@ const CYCLE_REPORT_DATA = {
         },
         {
           "pct": "7.84%",
-          "rank": "42"
+          "rank": "43"
         }
       ]
     },
@@ -4269,7 +4332,7 @@ const CYCLE_REPORT_DATA = {
         },
         {
           "pct": "11.58%",
-          "rank": "77"
+          "rank": "78"
         },
         {
           "pct": "16.67%",
@@ -4375,7 +4438,7 @@ const CYCLE_REPORT_DATA = {
         },
         {
           "pct": "10.17%",
-          "rank": "34"
+          "rank": "35"
         }
       ]
     },
@@ -4405,11 +4468,11 @@ const CYCLE_REPORT_DATA = {
         },
         {
           "pct": "11.27%",
-          "rank": "81"
+          "rank": "82"
         },
         {
           "pct": "5.06%",
-          "rank": "56"
+          "rank": "57"
         }
       ]
     },
@@ -4426,7 +4489,7 @@ const CYCLE_REPORT_DATA = {
         },
         {
           "pct": "5.26%",
-          "rank": "54"
+          "rank": "55"
         }
       ]
     },
@@ -4443,7 +4506,7 @@ const CYCLE_REPORT_DATA = {
         },
         {
           "pct": "6.67%",
-          "rank": "48"
+          "rank": "49"
         }
       ]
     },
@@ -4477,7 +4540,7 @@ const CYCLE_REPORT_DATA = {
         },
         {
           "pct": "7.69%",
-          "rank": "45"
+          "rank": "46"
         }
       ]
     }
@@ -5210,7 +5273,7 @@ const CYCLE_REPORT_DATA = {
       "bush_pct": "11.83%",
       "leaf_pct": "10.75%",
       "lawn_pct": "18.28%",
-      "conv_rank": "5",
+      "conv_rank": "4",
       "attach_rank": "3",
       "qa_rank": "1"
     },
@@ -5336,7 +5399,7 @@ const TEAM_RANKINGS_DATA = {
     },
     {
       "tl": "Christine Ebriega",
-      "pct": "84.68%",
+      "pct": "84.44%",
       "rank": "4"
     },
     {
@@ -5346,7 +5409,7 @@ const TEAM_RANKINGS_DATA = {
     },
     {
       "tl": "Mona Lapuz",
-      "pct": "79.43%",
+      "pct": "80.27%",
       "rank": "6"
     },
     {
