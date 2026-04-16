@@ -3795,6 +3795,33 @@ const QA_DATA = [
     "experience": "Excellent",
     "feedback": "This was a well-structured interaction. Mariella maintained a professional and polite tone throughout, provided all necessary information, and set clear expectations. Policies and processes were communicated thoroughly and in a way that supported customer understanding. Overall, this resulted in a strong customer experience. Nicely done!  07/04",
     "markdowns": []
+  },
+  {
+    "week": "4/5/2026",
+    "call_id": "300000003280185",
+    "agent": "Mhargie Castro",
+    "type": "EC",
+    "result": "Win",
+    "score": "0",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "This was a solid, well-structured call. Mhargie did a great job assisting the customer and successfully added the MQ.\n\nFor future interactions, we just need to stay vigilant with brand alignment when setting MQs, especially in cases where customers have accounts across multiple brands. In this scenario, the MQ was unfortunately placed under the incorrect brand.\n\nOverall, this was a positive interaction and a great customer experience. 10/04",
+    "markdowns": [
+      {
+        "items": [
+          {
+            "label": "Critical: Auto-Fail",
+            "severity": "Critical"
+          }
+        ],
+        "comment": "The brand the call came through was HomeGnome yet the MQ was added in the customer's Lawnstarter account.(Customer has an existing account with both brands.)"
+      }
+    ]
   }
 ];
 
@@ -3804,9 +3831,9 @@ const EMBEDDED_DATA = [
     "Conversion All In %": "25.93%",
     "Conversion Starter %": "15.79%",
     "Conversion Love %": "50.00%",
-    "Attach All In %": "14.29%",
+    "Attach All In %": "10.00%",
     "Attach All In #": "1",
-    "Mow Sales": "7",
+    "Mow Sales": "10",
     "EC Upsell %": "",
     "EC Wins": "0",
     "QA Audits": "18",
@@ -3834,9 +3861,9 @@ const EMBEDDED_DATA = [
     "Conversion All In %": "32.35%",
     "Conversion Starter %": "30.77%",
     "Conversion Love %": "25.00%",
-    "Attach All In %": "20.00%",
-    "Attach All In #": "2",
-    "Mow Sales": "10",
+    "Attach All In %": "50.00%",
+    "Attach All In #": "8",
+    "Mow Sales": "16",
     "EC Upsell %": "",
     "EC Wins": "0",
     "QA Audits": "20",
@@ -3852,8 +3879,8 @@ const EMBEDDED_DATA = [
     "Report Date": "March 22, 2026",
     "All In Calls": "34",
     "Total Wins": "11",
-    "LT #": "0",
-    "LT %": "0.00%",
+    "LT #": "1",
+    "LT %": "6.25%",
     "ACW Cycle (m)": "0.19",
     "Ready % Cycle": "78.47%",
     "ACW Cycle Range": "3/30/2026\u20134/1/2026",
@@ -3948,9 +3975,9 @@ const EMBEDDED_DATA = [
     "Conversion All In %": "26.92%",
     "Conversion Starter %": "25.00%",
     "Conversion Love %": "30.00%",
-    "Attach All In %": "62.50%",
-    "Attach All In #": "5",
-    "Mow Sales": "8",
+    "Attach All In %": "58.33%",
+    "Attach All In #": "7",
+    "Mow Sales": "12",
     "EC Upsell %": "",
     "EC Wins": "0",
     "QA Audits": "20",
@@ -3969,7 +3996,7 @@ const EMBEDDED_DATA = [
     "All In Calls": "26",
     "Total Wins": "7",
     "LT #": "1",
-    "LT %": "12.50%",
+    "LT %": "8.33%",
     "ACW Cycle (m)": "0.29",
     "Ready % Cycle": "75.85%",
     "ACW Cycle Range": "3/30/2026\u20134/1/2026",
@@ -3980,9 +4007,9 @@ const EMBEDDED_DATA = [
     "Conversion All In %": "30.77%",
     "Conversion Starter %": "18.18%",
     "Conversion Love %": "100.00%",
-    "Attach All In %": "",
+    "Attach All In %": "0.00%",
     "Attach All In #": "0",
-    "Mow Sales": "0",
+    "Mow Sales": "4",
     "EC Upsell %": "",
     "EC Wins": "0",
     "QA Audits": "20",
@@ -3999,6 +4026,7 @@ const EMBEDDED_DATA = [
     "All In Calls": "13",
     "Total Wins": "4",
     "LT #": "0",
+    "LT %": "0.00%",
     "ACW Cycle (m)": "0.21",
     "Ready % Cycle": "76.62%",
     "ACW Cycle Range": "3/31/2026\u20134/1/2026",
@@ -4009,13 +4037,13 @@ const EMBEDDED_DATA = [
     "Conversion All In %": "14.29%",
     "Conversion Starter %": "10.53%",
     "Conversion Love %": "25.00%",
-    "Attach All In %": "20.00%",
-    "Attach All In #": "1",
-    "Mow Sales": "5",
+    "Attach All In %": "36.36%",
+    "Attach All In #": "4",
+    "Mow Sales": "11",
     "EC Upsell %": "100.00%",
     "EC Wins": "1",
-    "QA Audits": "20",
-    "QA Win Rate": "50.00%",
+    "QA Audits": "21",
+    "QA Win Rate": "52.38%",
     "Ready %": "77.37%",
     "Avg ACW": "N/A",
     "Meal Time": "0:57:31",
@@ -4112,7 +4140,7 @@ const CYCLE_REPORT_DATA = {
       "cycles": [
         {
           "pct": "77.83%",
-          "rank": "101"
+          "rank": "100"
         },
         {
           "pct": "94.25%",
@@ -4197,7 +4225,7 @@ const CYCLE_REPORT_DATA = {
       "cycles": [
         {
           "pct": "95.00%",
-          "rank": "25"
+          "rank": "24"
         },
         {
           "pct": "",
@@ -4214,7 +4242,7 @@ const CYCLE_REPORT_DATA = {
       "cycles": [
         {
           "pct": "88.00%",
-          "rank": "61"
+          "rank": "60"
         },
         {
           "pct": "95.50%",
@@ -4248,7 +4276,7 @@ const CYCLE_REPORT_DATA = {
       "cycles": [
         {
           "pct": "83.67%",
-          "rank": "87"
+          "rank": "86"
         },
         {
           "pct": "77.25%",
@@ -4299,7 +4327,7 @@ const CYCLE_REPORT_DATA = {
       "cycles": [
         {
           "pct": "95.83%",
-          "rank": "21"
+          "rank": "20"
         },
         {
           "pct": "100.00%",
@@ -4349,8 +4377,8 @@ const CYCLE_REPORT_DATA = {
       "agent": "Mhargie Castro",
       "cycles": [
         {
-          "pct": "96.25%",
-          "rank": "19"
+          "pct": "77.00%",
+          "rank": "103"
         },
         {
           "pct": "97.50%",
@@ -4384,7 +4412,7 @@ const CYCLE_REPORT_DATA = {
       "cycles": [
         {
           "pct": "91.25%",
-          "rank": "50"
+          "rank": "49"
         },
         {
           "pct": "93.75%",
@@ -5433,14 +5461,14 @@ const CYCLE_REPORT_DATA = {
     {
       "label": "3/29\u20134/11",
       "conv_pct": "23.58%",
-      "qa_pct": "88.34%",
+      "qa_pct": "87.06%",
       "attach_pct": "44.79%",
       "bush_pct": "12.62%",
       "leaf_pct": "12.93%",
       "lawn_pct": "11.99%",
       "conv_rank": "1",
       "attach_rank": "1",
-      "qa_rank": "2"
+      "qa_rank": "3"
     },
     {
       "label": "3/15\u20133/28",
@@ -5514,22 +5542,22 @@ const TEAM_RANKINGS_DATA = {
   "attach": [
     {
       "tl": "Mae Garcia",
-      "pct": "51.11%",
+      "pct": "39.39%",
       "rank": "1"
     },
     {
-      "tl": "Marc Solis",
-      "pct": "37.50%",
+      "tl": "Christine Ebriega",
+      "pct": "35.35%",
       "rank": "2"
     },
     {
-      "tl": "Faye Andrade",
-      "pct": "35.00%",
+      "tl": "Marc Solis",
+      "pct": "34.35%",
       "rank": "3"
     },
     {
-      "tl": "Kyla Sangalang",
-      "pct": "33.62%",
+      "tl": "Faye Andrade",
+      "pct": "33.33%",
       "rank": "4"
     },
     {
@@ -5538,23 +5566,23 @@ const TEAM_RANKINGS_DATA = {
       "rank": "5"
     },
     {
-      "tl": "Christine Ebriega",
-      "pct": "31.25%",
+      "tl": "Kyla Sangalang",
+      "pct": "32.03%",
       "rank": "6"
     },
     {
-      "tl": "Christian Umali",
-      "pct": "29.17%",
+      "tl": "Mona Lapuz",
+      "pct": "29.08%",
       "rank": "7"
     },
     {
-      "tl": "Mona Lapuz",
-      "pct": "25.42%",
+      "tl": "Christian Umali",
+      "pct": "28.72%",
       "rank": "8"
     },
     {
       "tl": "Amber Knoten",
-      "pct": "17.65%",
+      "pct": "25.49%",
       "rank": "9"
     },
     {
