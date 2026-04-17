@@ -3856,6 +3856,23 @@ const QA_DATA = [
     "experience": "Good",
     "feedback": "Agent demonstrates solid product knowledge and good consultative instincts. Patient and consultative throughout a long, question-heavy call. 4/10 ",
     "markdowns": []
+  },
+  {
+    "week": "4/12/2026",
+    "call_id": "300000003274915",
+    "agent": "Mariella Carpio",
+    "type": "Initial",
+    "result": "Loss",
+    "score": "100",
+    "call_flow": "10",
+    "comm": "25",
+    "policy": "25",
+    "objections": "20",
+    "sales": "20",
+    "setup": "20",
+    "experience": "Good",
+    "feedback": "Agent delivered a genuinely informative LT pitch. Keep that confident and professional tone. 4/9",
+    "markdowns": []
   }
 ];
 
@@ -3870,8 +3887,8 @@ const EMBEDDED_DATA = [
     "Mow Sales": "16",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Audits": "18",
-    "QA Win Rate": "50.00%",
+    "QA Audits": "0",
+    "QA Win Rate": "N/A",
     "Ready %": "76.09%",
     "Avg ACW": "N/A",
     "Meal Time": "\u2014",
@@ -3900,8 +3917,8 @@ const EMBEDDED_DATA = [
     "Mow Sales": "19",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Audits": "20",
-    "QA Win Rate": "50.00%",
+    "QA Audits": "0",
+    "QA Win Rate": "N/A",
     "Ready %": "76.81%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:24",
@@ -3930,8 +3947,8 @@ const EMBEDDED_DATA = [
     "Mow Sales": "N/A",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Audits": "15",
-    "QA Win Rate": "46.67%",
+    "QA Audits": "0",
+    "QA Win Rate": "N/A",
     "Ready %": "0.00%",
     "Avg ACW": "N/A",
     "Meal Time": "\u2014",
@@ -3953,8 +3970,8 @@ const EMBEDDED_DATA = [
     "Mow Sales": "0",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Audits": "18",
-    "QA Win Rate": "44.44%",
+    "QA Audits": "0",
+    "QA Win Rate": "N/A",
     "Ready %": "0.00%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:57",
@@ -3982,8 +3999,8 @@ const EMBEDDED_DATA = [
     "Mow Sales": "5",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Audits": "20",
-    "QA Win Rate": "50.00%",
+    "QA Audits": "0",
+    "QA Win Rate": "N/A",
     "Ready %": "68.29%",
     "Avg ACW": "N/A",
     "Meal Time": "-",
@@ -4014,8 +4031,8 @@ const EMBEDDED_DATA = [
     "Mow Sales": "17",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Audits": "20",
-    "QA Win Rate": "50.00%",
+    "QA Audits": "0",
+    "QA Win Rate": "N/A",
     "Ready %": "77.40%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:49",
@@ -4046,8 +4063,9 @@ const EMBEDDED_DATA = [
     "Mow Sales": "8",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Audits": "20",
-    "QA Win Rate": "45.00%",
+    "QA Score (Avg)": "N/A",
+    "QA Audits": "0",
+    "QA Win Rate": "N/A",
     "Ready %": "77.63%",
     "Avg ACW": "N/A",
     "Meal Time": "\u2014",
@@ -4057,6 +4075,11 @@ const EMBEDDED_DATA = [
     "Login Time": "\u2014",
     "Logout Time": "\u2014",
     "Report Date": "March 22, 2026",
+    "QA %": "100.00%",
+    "Audits": "1",
+    "Total Score %": "100.00%",
+    "Overall Rank": "1",
+    "Team Rank": "1",
     "All In Calls": "26",
     "Total Wins": "8",
     "LT #": "0",
@@ -4076,8 +4099,8 @@ const EMBEDDED_DATA = [
     "Mow Sales": "18",
     "EC Upsell %": "100.00%",
     "EC Wins": "1",
-    "QA Audits": "22",
-    "QA Win Rate": "50.00%",
+    "QA Audits": "0",
+    "QA Win Rate": "N/A",
     "Ready %": "78.48%",
     "Avg ACW": "N/A",
     "Meal Time": "0:57:31",
@@ -4107,8 +4130,8 @@ const EMBEDDED_DATA = [
     "Mow Sales": "0",
     "EC Upsell %": "",
     "EC Wins": "0",
-    "QA Audits": "19",
-    "QA Win Rate": "47.37%",
+    "QA Audits": "0",
+    "QA Win Rate": "N/A",
     "Ready %": "78.27%",
     "Avg ACW": "N/A",
     "Meal Time": "0:59:26",
@@ -5630,43 +5653,7 @@ const TEAM_RANKINGS_DATA = {
       "rank": "11"
     }
   ],
-  "qa": [
-    {
-      "tl": "Christian Umali",
-      "pct": "100.00%",
-      "rank": "1"
-    },
-    {
-      "tl": "Faye Andrade",
-      "pct": "100.00%",
-      "rank": "2"
-    },
-    {
-      "tl": "Marc Solis",
-      "pct": "100.00%",
-      "rank": "3"
-    },
-    {
-      "tl": "Kyla Sangalang",
-      "pct": "90.00%",
-      "rank": "4"
-    },
-    {
-      "tl": "Mona Lapuz",
-      "pct": "90.00%",
-      "rank": "5"
-    },
-    {
-      "tl": "Katherine Militar",
-      "pct": "76.00%",
-      "rank": "6"
-    },
-    {
-      "tl": "Amber Knoten",
-      "pct": "55.00%",
-      "rank": "7"
-    }
-  ],
+  "qa": [],
   "cycle_label": "4/12/2026 - 4/25/2026"
 };
 
